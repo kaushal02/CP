@@ -1,6 +1,5 @@
 /*
 _bitset _dp
-
 O(n^2)
 */
 #include <bits/stdc++.h>
