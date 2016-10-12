@@ -1,6 +1,5 @@
 /*
 _prefix_array _string
-
 O(n)
 */
 #include <bits/stdc++.h>
