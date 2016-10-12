@@ -1,5 +1,5 @@
 /*
-prefix array ; string
+_prefix_array _string
 
 O(n)
 */
