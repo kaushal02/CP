@@ -1,5 +1,5 @@
 /*
-_lazy _segtree
+_lazy _segment_tree
 
 O(q*log(n))
 */
