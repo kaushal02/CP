@@ -1,5 +1,5 @@
 /*
-prefix array ; kmp ; string ; substring
+_prefix_array _kmp _string
 
 O(linear)
 */
