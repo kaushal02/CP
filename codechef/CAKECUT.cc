@@ -1,5 +1,5 @@
 /*
-bitset ; dp
+bitset ; dynamic programming
 
 O(n^2)
 */
