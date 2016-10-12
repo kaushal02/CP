@@ -1,7 +1,7 @@
 /*
 _prefix_array _kmp _string
 
-O(linear)
+O(input size)
 */
 #include <bits/stdc++.h>
 using namespace std;
