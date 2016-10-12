@@ -1,5 +1,5 @@
 /*
-lazy ; segtree
+lazy ; segment tree
 
 O(q*log(n))
 */
