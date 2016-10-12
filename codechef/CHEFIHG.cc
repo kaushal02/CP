@@ -1,5 +1,7 @@
 /*
 _grid _direction _pq _tuple
+
+O(n^2 * log(n))
 */
 #include <bits/stdc++.h>
 using namespace std;
