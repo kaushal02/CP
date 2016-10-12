@@ -1,5 +1,5 @@
 /*
-prefix array generic ; kmp
+prefix array ; kmp ; generic
 
 O(linear)
 */
