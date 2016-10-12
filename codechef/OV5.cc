@@ -1,5 +1,6 @@
 /*
 query buffering ; STL ; policy tree
+
 Using ordered_set to get the rank of an element in a multiset
 O(n*sqrt(n)*log(n))
 */
