@@ -1,5 +1,5 @@
 /*
-_query_buffering _STL _policy_tree _offline
+_query_buffering _STL _policy_tree _offline _multiset
 
 Using ordered_set to get the rank of an element in a multiset
 O(n*sqrt(n)*log(n))
