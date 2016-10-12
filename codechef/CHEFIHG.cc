@@ -1,5 +1,5 @@
 /*
-grid ; direction ; priority queue
+_grid _direction _pq
 */
 #include <bits/stdc++.h>
 using namespace std;
