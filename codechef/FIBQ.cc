@@ -1,5 +1,5 @@
 /*
-_matrix _segtree
+_matrix _segment_tree
 
 O(n*K^3*log(M) + q*log(n))
 K is the matrix dimension, M is the maximum power raised.
