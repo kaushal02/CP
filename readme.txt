@@ -2,7 +2,7 @@ Tags available:
 
 _generic
 _prime			_factorization
-_lazy			_segment_tree		_BIT			_RMQ
+_lazy			_segment_tree		_BIT			_RMQ			_DSU
 _prefix_array		_kmp			_string			_hashing		_palindrome
 _graph			_tree			_dij			_LCA
 _bitmask		_dp			_ncr			_grid			_direction
