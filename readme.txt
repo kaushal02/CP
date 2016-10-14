@@ -2,10 +2,10 @@ Tags available:
 
 _generic
 _prime			_factorization
-_lazy			_segment_tree		_BIT			_RMQ			_DSU
+_lazy			_segment_tree		_bit			_rmq			_dsu
 _prefix_array		_kmp			_string			_hashing		_palindrome
-_graph			_tree			_dij			_LCA			_mst
+_graph			_tree			_dij			_lca			_mst
 _bitmask		_dp			_ncr			_grid			_direction
 _policy_tree		_multiset		_pq			_tuple			_bitset
 _query_buffering	_offline		_sqrt_decomposition	_line_sweep		_MO
-_floyd_warshall
+_floyd_warshall	_grundy
