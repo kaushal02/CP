@@ -1,6 +1,5 @@
 /*
 _graph
-
 potential candidate for _01bfs
 
 https://a2oj.com/p?ID=28
