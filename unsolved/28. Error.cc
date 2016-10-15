@@ -1,9 +1,9 @@
 /*
-_graph _dfs01
+_graph
+
+potential candidate for _01bfs
 
 https://a2oj.com/p?ID=28
-verdict: TLE
-Judge: A2OJ
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -37,68 +37,60 @@ const int N = 26*26*26;
 inline int h(string &s) {
     return 676 * (s[0] - 'A') + 26 * (s[1] - 'A') + (s[2] - 'A');
 }
-inline string str(int n) {string ans="";rep(i,3){ans=(char)('A'+n%26)+ans;n/=26;}return ans;}
-vi t[N][2];
-int in, fi, vis[N], book[N],dp[N];
-inline void dfs01() {
-    int v, dis;
-    
-    queue<pii> q, qq;
-    stack<int> vistemp;
-    q.push(mp(fi,0));
-    book[fi]=0;
-    
-    while(!q.empty()) {
-        
-        v = q.front().X; dis = q.front().Y; q.pop();
-        //cout << "Processing " << str(v) << "@ " << dis << "\n";
 
+vi t[N][2];
+int in, fi, vis[N], dp[N];
+inline void bfs() {
+    int v, dis;
+    queue<pii> q;
+    q.push(mp(fi,0));
+    while(!q.empty()) {
+		v = q.front().X;
+		dis = q.front().Y;
+		q.pop();
+        if(vis[v] < dis) continue;
+        vis[v] = dis;
         rep(k,2) {
             rep(i,t[v][k].size()) {
                 int ch = t[v][k][i];
-                if(book[ch]>dis+1 ) {
-                    q.push(mp(ch,dis+1));
-                    book[ch] = dis + 1;
+                if(vis[ch] > dis + 1) {
+                    q.push(mp(ch, dis + 1));
+                    vis[ch] = dis + 1;
                 }
             }
         }
-        
-       
     }
 }
 
-int solve(int v){
-    //cout<<"at "<<str(v)<<' '<<book[v]<<endl;
-    if(dp[v]+1)return dp[v];
+int dfs(int v) {
+    if(dp[v] + 1) return dp[v];
     
-    int an=1e7;
+    int &ans = dp[v];
+    ans = 0x1010101;
     rep(k,2) {
         rep(i,t[v][k].size()) {
             int ch = t[v][k][i];
-            //cout<<"try "<<str(ch)<<' '<<book[ch]<<endl;
-            if(book[ch]==book[v]-1)an=min(an,k+solve(ch));
+            if(vis[ch] == vis[v] - 1)
+				ans = min(ans, k + dfs(ch));
         }
     }
-    //cout<<str(v)<< ' '<<an<<endl;
-    return dp[v]=an;
+    return ans;
 }
 
-int tempv[10*N];
 int main() {
     string s1, s2;
     int q; cin >> q;
-    int n;
-    rep(i,N)book[i]=1e7,dp[i]=-1;
     
     while(q--) {
-        n = 0;
-        int m; cin >> m;
+        rep(i,N)rep(j,2) t[i][j].clear();
+		mem(vis, 1);
+		mem(dp, -1);
+		
+		int m; cin >> m;
         while(m--) {
             cin >> s1 >> s2;
             t[h(s1)][1].eb(h(s2));
             t[h(s2)][1].eb(h(s1));
-            tempv[n++] = h(s1);
-            tempv[n++] = h(s2);
         }
         
         cin >> m >> s1;
@@ -110,22 +102,9 @@ int main() {
         }
         fi = h(s2);
         
-        dfs01();
-        dp[fi]=0;
-        solve(in);
-        
-        cout<<dp[in]<<endl;
-        rep(i,n) {
-            int ch = tempv[i];
-            //cout<<book[ch]<<' ';
-            t[ch][0].clear();
-            t[ch][1].clear();
-            book[ch] = 1e7;
-            dp[ch]=-1;
-            vis[ch] = 0;
-        }
+        bfs();
+        dp[fi] = 0; dfs(in);
+        cout << dp[in] << '\n';
     }
-    
-    
     return 0;
 }
