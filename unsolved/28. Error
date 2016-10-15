@@ -23,7 +23,7 @@ typedef vector<ll> vll;
 #define mem(a,val) memset(a, (val), sizeof a)
 #define uni(c) c.resize(distance(c.begin(), unique(all(c))))
 
-#define rep(i,n) for(int i = 0, _n = (n); i < _n; i++)
+#define rep(i,n) for(ll i = 0, _n = (n); i < _n; i++)
 #define rep1(i,a,b) for(ll i = a, _b = (b); i <= _b; i++)
 #define rep2(i,b,a) for(ll i = b, _a = (a); i >= _a; i--)
 
@@ -39,48 +39,46 @@ inline int h(string &s) {
 }
 inline string str(int n) {string ans="";rep(i,3){ans=(char)('A'+n%26)+ans;n/=26;}return ans;}
 vi t[N][2];
-int in, fi, vis[N], book[N],dp[N];
+int in, fi, vis[N], book[N];
 inline void dfs01() {
     int v, dis;
     
-    queue<pii> q, qq;
+    deque<pii> q, qq;
     stack<int> vistemp;
-    q.push(mp(fi,0));
-    book[fi]=0;
+    vis[in] = 1;
+    q.push_back(mp(in,0));
     
     while(!q.empty()) {
-        
-        v = q.front().X; dis = q.front().Y; q.pop();
-        //cout << "Processing " << str(v) << "@ " << dis << "\n";
-
-        rep(k,2) {
-            rep(i,t[v][k].size()) {
-                int ch = t[v][k][i];
-                if(book[ch]>dis+1 ) {
-                    q.push(mp(ch,dis+1));
-                    book[ch] = dis + 1;
+        while(!q.empty()) {
+            v = q.front().X; dis = q.front().Y; q.pop_front();
+            //cout << "Processing " << str(v) << "@ " << dis << "\n";
+            if(book[v] < dis) continue;
+            
+            if(v == fi) {
+                cout << book[v] << '\n';
+                return;
+            }
+            
+            rep(k,2) {
+                rep(i,t[v][k].size()) {
+                    int ch = t[v][k][i];
+                    if(!vis[ch]) {
+                        vistemp.push(ch);
+                        if(!k) qq.push_front(mp(ch,dis+k));
+                        else qq.push_back(mp(ch,dis+k));
+                        book[ch] = min((ll)book[ch], dis + k);
+                    }
                 }
             }
         }
-        
-       
-    }
-}
-
-int solve(int v){
-    //cout<<"at "<<str(v)<<' '<<book[v]<<endl;
-    if(dp[v]+1)return dp[v];
-    
-    int an=1e7;
-    rep(k,2) {
-        rep(i,t[v][k].size()) {
-            int ch = t[v][k][i];
-            //cout<<"try "<<str(ch)<<' '<<book[ch]<<endl;
-            if(book[ch]==book[v]-1)an=min(an,k+solve(ch));
+        //cout << "Round completes\n";
+        while(!vistemp.empty()) {
+            vis[vistemp.top()] = 1;
+            vistemp.pop();
         }
+        q.swap(qq);
     }
-    //cout<<str(v)<< ' '<<an<<endl;
-    return dp[v]=an;
+    assert(0);
 }
 
 int tempv[10*N];
@@ -88,8 +86,7 @@ int main() {
     string s1, s2;
     int q; cin >> q;
     int n;
-    rep(i,N)book[i]=1e7,dp[i]=-1;
-    
+    mem(book, 1);
     while(q--) {
         n = 0;
         int m; cin >> m;
@@ -111,21 +108,13 @@ int main() {
         fi = h(s2);
         
         dfs01();
-        dp[fi]=0;
-        solve(in);
-        
-        cout<<dp[in]<<endl;
         rep(i,n) {
             int ch = tempv[i];
-            //cout<<book[ch]<<' ';
             t[ch][0].clear();
             t[ch][1].clear();
-            book[ch] = 1e7;
-            dp[ch]=-1;
+            book[ch] = 0x1010101;
             vis[ch] = 0;
         }
     }
-    
-    
     return 0;
 }
