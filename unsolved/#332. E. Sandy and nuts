@@ -1,0 +1,8 @@
+/*
+_bitmask
+Traversing all submasks of a mask.
+Missing some cases while checking for validity.
+
+O(3^n)
+*/
+http://codeforces.com/problemset/problem/599/E
