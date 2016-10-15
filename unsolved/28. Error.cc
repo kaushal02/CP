@@ -1,5 +1,6 @@
 /*
 _graph
+
 potential candidate for _01bfs
 
 https://a2oj.com/p?ID=28
@@ -44,9 +45,9 @@ inline void bfs() {
     queue<pii> q;
     q.push(mp(fi,0));
     while(!q.empty()) {
-		v = q.front().X;
-		dis = q.front().Y;
-		q.pop();
+        v = q.front().X;
+        dis = q.front().Y;
+        q.pop();
         if(vis[v] < dis) continue;
         vis[v] = dis;
         rep(k,2) {
@@ -70,7 +71,7 @@ int dfs(int v) {
         rep(i,t[v][k].size()) {
             int ch = t[v][k][i];
             if(vis[ch] == vis[v] - 1)
-				ans = min(ans, k + dfs(ch));
+                ans = min(ans, k + dfs(ch));
         }
     }
     return ans;
@@ -82,10 +83,10 @@ int main() {
     
     while(q--) {
         rep(i,N)rep(j,2) t[i][j].clear();
-		mem(vis, 1);
-		mem(dp, -1);
-		
-		int m; cin >> m;
+        mem(vis, 1);
+        mem(dp, -1);
+        
+        int m; cin >> m;
         while(m--) {
             cin >> s1 >> s2;
             t[h(s1)][1].eb(h(s2));
