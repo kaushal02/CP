@@ -8,4 +8,4 @@ _graph			_tree			_dij			_01bfs			_mst
 _bitmask		_dp			_ncr			_grid			_direction
 _policy_tree		_multiset		_pq			_tuple			_bitset
 _query_buffering	_offline		_sqrt_decomposition	_line_sweep		_MO
-_floyd_warshall		_grundy			_lca
+_floyd_warshall		_grundy			_lca		_euler_path
