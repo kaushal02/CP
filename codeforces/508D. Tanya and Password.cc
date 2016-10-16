@@ -1,6 +1,7 @@
 /*
 _graph _euler_path _dsu
 
+http://codeforces.com/contest/508/problem/D
 O(input size)
 */
 #include <bits/stdc++.h>
