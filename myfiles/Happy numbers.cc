@@ -1,6 +1,4 @@
 /*
-_loop
-
 A number is called Happy Number if when repeatedly replaced by the sum of squares of its digit, it becomes unity at some point.
 e.g: 19 -> 82 (1 + 81)
 		-> 68 (64 + 4)
@@ -11,10 +9,11 @@ More can be found out from the book "A Gateway to Modern Mathematics: Vol-1" by 
 We are interested in reporting whether a given number is Happy or not. We want to perform lots of queries in very less time.
 To do this we observe that any number keeps on shrinking till it reaches the range [1,162] and then it is stuck in some loop forever.
 Let's define one operation as n -> ssq(n)
-Consider n <= 10^100, ssq(n) <= 100 * 81 = 8100 <= 10000
-					 ssq(ssq(n)) <= 4 * 81 = 324
-					 ssq(ssq(ssq(n))) <= 4 + 81 + 81 = 166
-					 ssq(ssq(ssq(ssq(n)))) <= 81 + 81 = 162.
+Consider n <= 10^100,
+		ssq(n) <= 100 * 81 = 8100 <= 10000
+		ssq(ssq(n)) <= 4 * 81 = 324
+		ssq(ssq(ssq(n))) <= 4 + 81 + 81 = 166
+		ssq(ssq(ssq(ssq(n)))) <= 81 + 81 = 162.
 And now we are trapped in the range [1,162] in just four steps. Observe that step 3 is because 299 <= 324 gives maximum ssq().
 Similarly step 4 arises because 99 <= 166 gives maximum ssq().
 Hence we conclude that however big a number be, it is bound to get trapped in range [1,162] in very small number of iterations.
