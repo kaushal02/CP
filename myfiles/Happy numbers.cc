@@ -1,6 +1,7 @@
 /*
 A number is called Happy Number if when repeatedly replaced by the sum of squares of its digit, it becomes unity at some point.
-e.g: 19 -> 82 (1 + 81)
+e.g: Let n = 19,
+	19	-> 82 (1 + 81)
 		-> 68 (64 + 4)
 		-> 100 (36 + 64)
 		-> 1 (1 + 0 + 0)
@@ -24,7 +25,7 @@ So, the key idea of below algorithm is to solve the problem for numbers in the r
 const int N = 163;
 
 int a[N];
-inline long long upd(long long n) {
+inline long long ssq(long long n) {
     long long sumsq = 0;
     while(n > 0) {
         sumsq += (n%10) * (n%10);
@@ -33,10 +34,10 @@ inline long long upd(long long n) {
     return sumsq;
 }
 inline bool happy(long long n, int repeat) {
-    while(n >= N) n = upd(n);
+    while(n >= N) n = ssq(n);
     if(a[n] + 1) return a[n];
     if(repeat >= N) return a[n] = 0;
-    return a[n] = happy(upd(n), repeat + 1);
+    return a[n] = happy(ssq(n), repeat + 1);
 }
 
 int main() {
