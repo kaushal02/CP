@@ -22,9 +22,9 @@ Hence we conclude that however big a number be, it is bound to get trapped in ra
 So, the key idea of below algorithm is to solve the problem for numbers in the range [1,162]. Using these values, we report for any general n.
 */
 #include <iostream>
-const int N = 163;
+const int N = 162;
 
-int a[N];
+int a[N+1];
 inline long long ssq(long long n) {
     long long sumsq = 0;
     while(n > 0) {
@@ -34,14 +34,14 @@ inline long long ssq(long long n) {
     return sumsq;
 }
 inline bool happy(long long n, int repeat) {
-    while(n >= N) n = ssq(n);
+    while(n > N) n = ssq(n);
     if(a[n] + 1) return a[n];
-    if(repeat >= N) return a[n] = 0;
+    if(repeat > N) return a[n] = 0;
     return a[n] = happy(ssq(n), repeat + 1);
 }
 
 int main() {
-    for(int i = 0; i < N; i++) a[i] = -1;
+    for(int i = 1; i <= N; i++) a[i] = -1;
     a[1] = 1;
     
     long long input;
