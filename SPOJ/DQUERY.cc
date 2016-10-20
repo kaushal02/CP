@@ -60,6 +60,7 @@ int main() {
         while(curr > r)
             if(--cur[a[curr--]] == 0)
                 --num;
+		
         ans[q[i].Y] = num;
     }
     rep(i,t) printf("%d\n", ans[i]);
