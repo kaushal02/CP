@@ -30,18 +30,18 @@ int main() {
     
     int t; scanf(" %d", &t);
     k = t / sqrt(n);
-	vi ans(t);
+    vi ans(t);
     vector<node> q(t);
     
     rep(i,t) {
-		scanf(" %d %d", &q[i].X.X, &q[i].X.Y);
-		q[i].Y = i;
-		q[i].X.X--;
-		q[i].X.Y--;
-	}
+        scanf(" %d %d", &q[i].X.X, &q[i].X.Y);
+        q[i].Y = i;
+        q[i].X.X--;
+        q[i].X.Y--;
+    }
     sort(all(q), [](node l, node r) {
-		if(l.X.X/k == r.X.X/k) return l.X.Y < r.X.Y;
-    	else return l.X.X < r.X.X;});
+        if(l.X.X/k == r.X.X/k) return l.X.Y < r.X.Y;
+        else return l.X.X < r.X.X;});
     
     vi cur(N);
     int curl(q[0].X.X), curr(q[0].X.X-1), l, r, num(0);
@@ -60,7 +60,7 @@ int main() {
         while(curr > r)
             if(--cur[a[curr--]] == 0)
                 --num;
-		
+        
         ans[q[i].Y] = num;
     }
     rep(i,t) printf("%d\n", ans[i]);
