@@ -1,6 +1,7 @@
 /*
 _dsu
 
+https://www.hackerrank.com/contests/sears-dots-arrows/challenges/simple-paths
 Pre definition of dsu, and late initialization.
 d[i] stores the graph ignoring all edges of color i, dt is the total graph
 O(q*c)
