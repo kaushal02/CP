@@ -49,10 +49,10 @@ inline void init() {
     pw[0] = 100;
 }
 int main() {
-	freopen("testgen.in","r",stdin);
-	freopen("testgen.out","w",stdout);
+    freopen("testgen.in","r",stdin);
+    freopen("testgen.out","w",stdout);
     
-	cin >> k;
+    cin >> k;
     init();
     solve(1);
     cout << k - minn + 1 << '\n';
