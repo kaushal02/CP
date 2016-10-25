@@ -107,7 +107,7 @@ int main() {
         else if(in[i] != out[i]) imp();
     }
     if(fin == -1) {
-        fin = 0; while(!in[fin]) fin++;
+        fin = 0; while(!out[fin]) fin++;
     }
     
     dfs(fin);
