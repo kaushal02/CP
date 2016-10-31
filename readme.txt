@@ -2,7 +2,7 @@ Search for particular type of problems using these tags.
 Tags available:
 
 _generic
-_prime			_factorization		_sieve
+_prime			_factorization		_sieve			_cycle
 _lazy			_segment_tree		_bit			_rmq			_dsu
 _prefix_array		_kmp			_string			_hashing		_palindrome
 _graph			_tree			_dij			_01bfs			_mst
