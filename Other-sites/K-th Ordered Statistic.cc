@@ -1,5 +1,7 @@
 /*
-Problem to find k-th order statistic in optimal way. Some unnecessary steps taken to avoid TLE.
+Problem to find k-th order statistic in optimal way.
+Some unnecessary steps taken to avoid TLE. For instance, replacing Xorshift RNG with inbuilt RNG gives TLE.
+
 I modified quick sorting to handle the task. Repeated elements help reduce the time complexity of this code.
 
 https://courses.edx.org/courses/course-v1:ITMOx+I2CPx+3T2016/courseware/3e4889eff12145bbb546d72c531cf952/87c0d792bf1b4616bcc0e56f4e0c3d59/
