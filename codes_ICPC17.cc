@@ -8,6 +8,7 @@ typedef vector<int> vi;
 #define X first
 #define Y second
 #define mp make_pair
+#define pb push_back
 #define all(c) begin(c), end(c)
 #define con(i,a,b) a<=i and i<=b
 #define uni(c) c.resize(distance(c.begin(), unique(all(c))))
@@ -230,7 +231,7 @@ inline int rmq(int l, int r) {
 }
 /***************************************************************************/
 #include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/detail/standard_policies.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
 TTi using oset = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 s.insert(x); s.erase(x); s.erase(s.lower_bound(x));
