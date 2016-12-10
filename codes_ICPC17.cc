@@ -147,6 +147,10 @@ TTi struct hashed {
 		return c.X+231LL*c.Y;
 	}
 }
+
+vi c(a, a+n); sort(all(c)); uni(c);
+map<int,int> id;
+int k(0); for(auto x: c) id[x]=k++;
 /***************************************************************************/
 inline int kth(int i, int j) {
 	if(i==j) return a[i];
