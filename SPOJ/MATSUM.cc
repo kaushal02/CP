@@ -2,12 +2,7 @@
 _bit _inclusion-exclusion
 O(4*q*logn) per test
 */
-// g++ -std=c++11 -O2 
-/*
-_bit _inclusion-exclusion
-O(4*q*logn) per test
-*/
-// g++ -std=c++11 -O2 
+// g++ -std=c++11 -O2
 #include <bits/stdc++.h>
 using namespace std;
 
