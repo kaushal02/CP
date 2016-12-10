@@ -162,11 +162,12 @@ inline int kth(int i, int j) {
 }
 /***************************************************************************/
 typedef pair<pii,int> node;
+int K, a[N];
 inline void add(int i) {}
 inline void rem(int i) {}
 int main() {
 	int q; cin >> q; // query count
-	int K = q/sqrt(n);
+	K = q/sqrt(n);
 	vector<node> qu(q);
 	rep(i,q) {
 		int x,y; cin>>x>>y;
@@ -177,7 +178,7 @@ int main() {
 		return l.X.X<r.X.X;});
 	vi ans(q);
 	int curl(0), curr(-1), l, r;
-	rep(i,t) {
+	rep(i,q) {
 		tie(l,r)=qu[i].X;
 		while(curl>l) add(--curl);
 		while(curr<r) add(++curr);
