@@ -3,6 +3,11 @@ _bit _inclusion-exclusion
 O(4*q*logn) per test
 */
 // g++ -std=c++11 -O2 
+/*
+_bit _inclusion-exclusion
+O(4*q*logn) per test
+*/
+// g++ -std=c++11 -O2 
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -26,52 +31,28 @@ typedef vector<int> vi;
 
 const ll inf = 1e16, mod = 1e9 + 7;
 const double eps = 1e-16;
-const int N = 2e6 + 10;
+const int N = 1e3 + 30;
 
-template<class T>
-struct bit2 {
-    T **a, **bt; int n, m;
-    bit2(int _n, int _m) {
-        n=_n; m=_m;
-        a=(T**)calloc(n+1,sizeof(T*));
-        rep(i,n+1) a[i]=(T*)calloc(m+1,sizeof(T));
-        bt=(T**)calloc(n+1,sizeof(T*));
-        rep(i,n+1) bt[i]=(T*)calloc(m+1,sizeof(T));
-    }
-    void set(int x, int y, T v) {
-        v-=a[x][y];
-        a[x][y]+=v;
-        x++;
-        while(x<=n) {
-            int yy=y; yy++;
-            while(yy<=m) {
-                bt[x][yy]+=v;
-                yy+=yy&-yy;
-            }
-            x+=x&-x;
-        }
-    }
-    T sumh(int x, int y) {
-        T ans=0; x++;
-        while(x) {
-            int yy=y; yy++;
-            while(yy) {
-                ans+=bt[x][yy];
-                yy^=yy&-yy;
-            }
-            x^=x&-x;
-        }
-        return ans;
-    }
-    T sum(int x1, int y1, int x2, int y2) {
-        T ans=0; x1--, y1--;
-        ans+=sumh(x2,y2);
-        ans-=sumh(x2,y1);
-        ans-=sumh(x1,y2);
-        ans+=sumh(x1,y1);
-        return ans;
-    }
-};
+ll bt[N][N], a[N][N], n;
+inline void upd(int x, int y, ll val) {
+    val-=a[x][y];
+    a[x][y]+=val;
+    x++, y++;
+    for(int i=x; i<=n; i+=i&-i)
+        for(int j=y; j<=n; j+=j&-j)
+            bt[i][j]+=val;
+}
+inline ll sumh(int x, int y) {
+    ll sum=0;
+    for(int i=x; i>0; i^=i&-i)
+        for(int j=y; j>0; j^=j&-j)
+            sum+=bt[i][j];
+    return sum;
+}
+inline ll sum(int x, int y, int X, int Y) {
+    X++, Y++;
+    return sumh(X,Y) - sumh(X,y) - sumh(x,Y) + sumh(x,y);
+}
 
 template <typename T = int>
 inline void in(T&p) {
@@ -95,19 +76,19 @@ int main() {
     // freopen((fname+".out").c_str(), "w", stdout);
     int q; in(q);
     while(q--) {
-        int n; in(n);
-        bit2<int> b(n,n);
+        in(n);
+        rep(i,n+1)rep(j,n+1) a[i][j]=bt[i][j]=0;
         char s[4]; scanf("%s", s);
         while(s[0] != 'E') {
             if(s[1] == 'E') {
                 int x, y, num;
                 in(x), in(y), in(num);
-                b.set(x,y,num);
+                upd(x,y,num);
             }
             if(s[1] == 'U') {
                 int x1, y1, x2, y2;
                 in(x1), in(y1), in(x2), in(y2);
-                out(b.sum(x1,y1,x2,y2));
+                out(sum(x1,y1,x2,y2));
             }
             scanf("%s", s);
         }
