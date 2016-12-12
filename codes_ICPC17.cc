@@ -243,7 +243,7 @@ s.insert(x); s.erase(x); s.erase(s.lower_bound(x));
 s.order_of_key(x); // 0-based index of least a[i] >= x
 *s.find_by_order(i); // a[i]
 /***************************************************************************/
-// In main(), only initialize n, m, S, T, and call add() to build graph
+// In main(), only initialize nf, S, T, and call add() to build graph
 const int V = 270;
 const int E = V * V * 2;
 const int INF = (int)1e9;
@@ -251,12 +251,11 @@ const int INF = (int)1e9;
 struct edge {
     int v, to, cap, flow;
 };
-int n, m, S, T;
 
 edge ed[E];
 int edSz;   //edSz=2*i for ith edge and 2*i+1 is its reverse   
 vector<int> g[V];
-int dist[V], idx[V], q[V], topQ;
+int nf, S, T, dist[V], idx[V], q[V], topQ;
 
 void add(int v, int to, int cap) {
     g[v].pb(edSz);
@@ -266,7 +265,7 @@ void add(int v, int to, int cap) {
 }
 
 bool bfs() {
-    rep(i,n) dist[i]=INF;
+    rep(i,nf) dist[i]=INF;
     dist[S]=0;
     topQ=1;
     q[0]=S;
@@ -302,13 +301,10 @@ int dfs(int v, int flow) {
     return res;
 }
 
-int getFlow()
-{
-    n += 2;
-    int res = 0;
-    while(bfs())
-    {
-        rep(i,n) idx[i] = 0;
+int getFlow() {
+    int res=0;
+    while(bfs()) {
+        rep(i,nf) idx[i] = 0;
         res += dfs(S, INF);
     }
     return res;
