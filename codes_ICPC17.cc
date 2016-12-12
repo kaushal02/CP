@@ -301,4 +301,16 @@ int dfs(int v, int flow) {
     }
     return res;
 }
+
+int getFlow()
+{
+    n += 2;
+    int res = 0;
+    while(bfs())
+    {
+        rep(i,n) idx[i] = 0;
+        res += dfs(S, INF);
+    }
+    return res;
+}
 /***************************************************************************/
