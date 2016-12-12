@@ -256,53 +256,48 @@ int n, m, S, T;
 edge ed[E];
 int edSz;   //edSz=2*i for ith edge and 2*i+1 is its reverse   
 vector<int> g[V];
-int dist[V], idx[V], q[V];
-int topQ;
+int dist[V], idx[V], q[V], topQ;
 
 void add(int v, int to, int cap) {
     g[v].pb(edSz);
     ed[edSz++] = {v,to,cap,0};
     g[to].pb(edSz);
-    ed[edSz++] = {to,v,0,0};
+    ed[edSz++] = {to,v,cap,0}; // undirected
 }
 
-bool bfs()
-{
+bool bfs() {
     rep(i,n) dist[i]=INF;
-    dist[S] = 0;
-    topQ = 1;
-    q[0] = S;
-    rep(k,topQ) {
-        int v = q[k];
-        for (int id : g[v])
-        {
-            edge e = ed[id];
-            if (e.cap == e.flow) continue;
-            int to = e.to;
-            if (dist[to] <= dist[v] + 1) continue;
-            dist[to] = dist[v] + 1;
-            q[topQ++] = to;
+    dist[S]=0;
+    topQ=1;
+    q[0]=S;
+    for(int k=0; k<topQ; k++) {
+        int v=q[k];
+        for(int id: g[v]) {
+            edge e=ed[id];
+            if(e.cap==e.flow) continue;
+            int to=e.to;
+            if(dist[to]<=dist[v]+1) continue;
+            dist[to]=dist[v]+1;
+            q[topQ++]=to;
         }
     }
-    return dist[T] != INF;
+    return dist[T]!=INF;
 }
 
-int dfs(int v, int flow)
-{
-    if (v == T || flow == 0) return flow;
-    int res = 0;
-    for (int &i = idx[v]; i < (int)g[v].size(); i++)
-    {
-        int id = g[v][i];
-        edge e = ed[id];
-        int to = e.to;
-        if (dist[to] != dist[v] + 1) continue;
-        int df = dfs(to, min(flow, e.cap - e.flow));
-        res += df;
-        flow -= df;
-        ed[id].flow += df;
-        ed[id ^ 1].flow -= df;
-        if (flow == 0) return res;
+int dfs(int v, int flow) {
+    if (v==T or flow==0) return flow;
+    int res=0;
+    for(int &i=idx[v]; i<(int)g[v].size(); i++) {
+        int id=g[v][i];
+        edge e=ed[id];
+        int to=e.to;
+        if(dist[to]!=dist[v]+1) continue;
+        int df=dfs(to, min(flow, e.cap-e.flow));
+        res+=df;
+        flow-=df;
+        ed[id].flow+=df;
+        ed[id^1].flow-=df;
+        if(flow==0) return res;
     }
     return res;
 }
