@@ -310,3 +310,52 @@ int getFlow() {
     return res;
 }
 /***************************************************************************/
+isnan(d); // returns true if double 'd' is NaN
+round(), floor(), ceil(), trunc(); // 5.5-> 6, 5, 6, 5 and -5.5-> -6, -6, -5, -5
+sqrt(), cbrt(), exp(), log(), log2(), log10(); // 
+frac = modf(num, inte); // double 'num' is divided into double 'inte' and double 'frac, all having same sign
+b.count(), b.any(), b.none(), b.all(), b.flip(); // oeprations on bitset 'b'
+/***************************************************************************/
+#define dbl long double
+dbl eps=1e-12, pi=acosl(-1);
+struct pt {
+    dbl x, y;
+    pt(dbl xx=0, dbl yy=0) { x=xx; y=yy;}
+    
+    dbl operator*(pt p) { return x*p.x + y*p.y;}
+    dbl operator%(pt p) { return x*p.y - y*p.x;}
+    
+    pt operator+(pt p) { return pt(x+p.x, y+p.y);}
+    pt operator-(pt p) { return pt(x-p.x, y-p.y);}
+    pt operator*(dbl k) { return pt(x*k, y*k);}
+    pt operator/(dbl k) { assert(k>eps); return pt(x/k, y/k);}
+    
+    pt rot(dbl th=asin(1)) { return rot(cos(th), sin(th));}
+    pt rot(dbl cosa, dbl sina) { return *this*cosa + pt(-y,x)*sina;}
+};
+dbl len(pt p) { return sqrt(p*p);}
+pt dir(pt p) { assert(len(p)>eps); return p/len(p);}
+pt operator*(dbl k, pt p) { return p*k;}
+ostream& operator<<(ostream& os, pt p) { os<<"("<<p.x<<", "<<p.y<<")\n"; return os;}
+istream& operator>>(istream& is, pt& p) { is>>p.x>>p.y; return is;}
+bool operator<(const pt &p, const pt &q) {
+    if(fabs(p.x-q.x)<eps) return p.y<q.y;
+    return p.x<q.x;
+}
+
+dbl area(pt a, pt b, pt c) { return fabs(a%b+b%c+c%a)/2;}
+dbl peri(pt a, pt b, pt c) { return len(a-b)+len(b-c)+len(c-a);}
+
+pt foot(pt p, pt q, pt r) {
+    if(area(p,q,r)<eps) return r;
+    return p + dir(q-p)*((r-p)*dir(q-p));
+}
+
+bool lineline(pt p1, pt p2, pt p3, pt p4, pt &p) {
+    dbl d = (p2-p1)%(p4-p3);
+    if(fabs(d)<eps) return false;
+    d = ((p4-p3)%(p1-p3))/d; // sine rule
+    p=p1+(p2-p1)*d;
+    return true;
+}
+/***************************************************************************/
