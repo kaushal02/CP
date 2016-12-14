@@ -2,6 +2,7 @@
 using namespace std;
 
 typedef long long ll;
+typedef long double dbl;
 typedef pair<int,int> pii;
 typedef vector<int> vi;
 
@@ -14,14 +15,13 @@ typedef vector<int> vi;
 #define uni(c) c.resize(distance(c.begin(), unique(all(c))))
 
 #define rep(i,n) for(ll i=0, _n=(n); i<_n; i++)
-#define rep1(i,n) for(ll i=1; _n=(n); i<=_n; i++)
-
+#define rep1(i,n) for(ll i=1, _n=(n); i<=_n; i++)
 #define cout(d) cout << fixed << setprecision(d)
 #define err(x) cerr << #x << " = " << x << "\n"
 
-const ll inf = 1e16, mod = 1e9 + 7;
-const double eps = 1e-16;
-const int N = 2e6 + 10;
+const dbl eps=1e-12, pi=acosl(-1);
+const ll inf=1e16, mod=1e9+7;
+const int N=2e6+10;
 
 int main() {
 	
@@ -42,7 +42,7 @@ void sieve(int N) {
 	}
 }
 inline ll mul(ll a, ll b, ll m) {
-	ll q = ((long double)a * (long double)b) / (long double)m;
+	ll q = ((dbl)a * (dbl)b) / (dbl)m;
 	ll r = a*b - q*m;
 	return (r<0 ? r+m:r);
 }
@@ -130,9 +130,6 @@ TTi void out(T n) {
 	while(i) putchar(d[--i]);
 	putchar('\n');
 }
-cin >> ws;//eat whitespaces
-c = cin.peek();//get next character, maybe EOF
-cin.putback(c); //put c in stream
 /***************************************************************************/
 inline int high(ll n) { return 63 - __builtin_clzll(n);} // location of highest set bit
 #define pq(c) priority_queue<c,vector<c>,compare<c>>
@@ -313,11 +310,12 @@ int getFlow() {
 isnan(d); // returns true if double 'd' is NaN
 round(), floor(), ceil(), trunc(); // 5.5-> 6, 5, 6, 5 and -5.5-> -6, -6, -5, -5
 sqrt(), cbrt(), exp(), log(), log2(), log10(); // 
-frac = modf(num, inte); // double 'num' is divided into double 'inte' and double 'frac, all having same sign
+frac = modf(num, &inte); // double 'num' is divided into double 'inte' and double 'frac, all having same sign
 b.count(), b.any(), b.none(), b.all(), b.flip(); // oeprations on bitset 'b'
+cin >> ws;//eat whitespaces
+c = cin.peek();//get next character, maybe EOF
+cin.putback(c); //put c in stream
 /***************************************************************************/
-#define dbl long double
-dbl eps=1e-12, pi=acosl(-1);
 struct pt {
     dbl x, y;
     pt(dbl xx=0, dbl yy=0) { x=xx; y=yy;}
@@ -329,33 +327,75 @@ struct pt {
     pt operator-(pt p) { return pt(x-p.x, y-p.y);}
     pt operator*(dbl k) { return pt(x*k, y*k);}
     pt operator/(dbl k) { assert(k>eps); return pt(x/k, y/k);}
-    
-    pt rot(dbl th=asin(1)) { return rot(cos(th), sin(th));}
+
+    pt rot(dbl th=pi/2) { return rot(cos(th), sin(th));}
     pt rot(dbl cosa, dbl sina) { return *this*cosa + pt(-y,x)*sina;}
 };
+typedef vector<pt> vp;
 dbl len(pt p) { return sqrt(p*p);}
-pt dir(pt p) { assert(len(p)>eps); return p/len(p);}
+pt dir(pt p) { return p/len(p);}
 pt operator*(dbl k, pt p) { return p*k;}
-ostream& operator<<(ostream& os, pt p) { os<<"("<<p.x<<", "<<p.y<<")\n"; return os;}
-istream& operator>>(istream& is, pt& p) { is>>p.x>>p.y; return is;}
+bool operator==(pt p, pt q) { return fabs(len(p-q))<eps;}
+
+ostream& operator<<(ostream& os, pt p) {
+    os<<"("<<p.x<<", "<<p.y<<")\n";
+    return os;
+}
+istream& operator>>(istream& is, pt& p) {
+    is>>p.x>>p.y; return is;
+}
 bool operator<(const pt &p, const pt &q) {
     if(fabs(p.x-q.x)<eps) return p.y<q.y;
     return p.x<q.x;
 }
 
-dbl area(pt a, pt b, pt c) { return fabs(a%b+b%c+c%a)/2;}
-dbl peri(pt a, pt b, pt c) { return len(a-b)+len(b-c)+len(c-a);}
-
 pt foot(pt p, pt q, pt r) {
-    if(area(p,q,r)<eps) return r;
     return p + dir(q-p)*((r-p)*dir(q-p));
 }
-
 bool lineline(pt p1, pt p2, pt p3, pt p4, pt &p) {
-    dbl d = (p2-p1)%(p4-p3);
+    dbl d = (p4-p3)%(p2-p1);
     if(fabs(d)<eps) return false;
-    d = ((p4-p3)%(p1-p3))/d; // sine rule
+    d = ((p1-p3)%(p4-p3))/d; // sine rule
     p=p1+(p2-p1)*d;
     return true;
 }
+dbl angle(pt p, pt q, pt r) { // angle pq->pr in (-pi, pi]
+    pt base=dir(q-p);
+    return atan2((r-p)*base.rot(), (r-p)*base);
+}
+int pseg(pt p, pt q, pt r) {
+    return fabs(angle(p,q,r))<eps and fabs(angle(q,p,r))<eps;
+}
+int pline(pt p, pt q, pt r) {
+    return fabs((r-p)%(q-p))<eps;
+}
+
+struct CP {
+    vp p;
+    CP(vp &a) {p=a;}
+    dbl getl(vp& strip, dbl d) {
+        sort(all(strip), [](pt a, pt b){return a.y < b.y;});
+        int n=strip.size();
+        
+        dbl ans=d;
+        rep(i,n)for(int j=i+1; j<=i+4; j++) if(j<n)
+            ans=min(ans, len(strip[i]-strip[j]));
+        return ans;
+    }
+    dbl get(int l, int r) {
+        if(l==r) return inf;
+        
+        int mid=(l+r)/2;
+        dbl d=min(get(l,mid), get(mid+1,r));
+        
+        vp strip;
+        for(int i=l; i<=r; i++)
+            if(abs(p[i].x-p[mid].x) < d) strip.pb(p[i]);
+        return getl(strip, d);
+    }
+    dbl closest() {
+        sort(all(p));
+        return get(0, (int)p.size()-1);
+    }
+};
 /***************************************************************************/
