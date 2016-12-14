@@ -370,6 +370,30 @@ int sense(pt p, pt q, pt r) { // pq->pr is anticlockwise=>1
     return 0;
 }
 
+pt p0;
+void hull(vp v, vp &w) {
+    int n=v.size(), id(0);
+    rep(i,n) {
+        if(fabs(v[i].y-v[id].y)<eps and v[i].x<v[id].x-eps) id=i;
+        else if(v[i].y<v[id].y-eps) id=i;
+    }
+    p0=v[id]; v.erase(v.begin()+id);
+    sort(all(v), [](pt p, pt q) {
+        int sg=sense(p0, p, q);
+        if(sg==0) return len(p-p0) < len(q-p0)-eps;
+        return sg>0;
+    });
+    
+    int m=1;
+    w.clear(); w.pb(p0);
+    for(pt p: v) {
+        while(m>1 and sense(w[m-2],w[m-1],p)!=1) {
+            w.pop_back(); m--;
+        }
+        if(len(p-w.back())>eps) w.pb(p), m++;
+    }
+}
+
 struct CP {
     vp p;
     CP(vp &a) {p=a;}
