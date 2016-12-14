@@ -369,6 +369,13 @@ int sense(pt p, pt q, pt r) { // pq->pr is anticlockwise=>1
     if(d<-eps) return -1;
     return 0;
 }
+vp linecir(pt c, dbl r, pt p, pt q) {
+    pt b=foot(p,q,c); dbl d=len(b-c);
+    if(d>r+eps) return {};
+    if(fabs(r-d)<eps) return {b};
+    d=sqrt(r*r-d*d);
+    return {b+d*dir(p-q), b+d*dir(q-p)};
+}
 
 pt p0;
 void hull(vp v, vp &w) {
