@@ -363,11 +363,11 @@ dbl angle(pt p, pt q, pt r) { // angle pq->pr in (-pi, pi]
     pt base=dir(q-p);
     return atan2((r-p)*base.rot(), (r-p)*base);
 }
-int pseg(pt p, pt q, pt r) {
-    return fabs(angle(p,q,r))<eps and fabs(angle(q,p,r))<eps;
-}
-int pline(pt p, pt q, pt r) {
-    return fabs((r-p)%(q-p))<eps;
+int sense(pt p, pt q, pt r) { // pq->pr is anticlockwise=>1
+    dbl d=(q-p)%(r-p);
+    if(d>eps) return 1;
+    if(d<-eps) return -1;
+    return 0;
 }
 
 struct CP {
