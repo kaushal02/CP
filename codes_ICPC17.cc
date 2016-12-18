@@ -12,7 +12,7 @@ typedef vector<int> vi;
 #define mp make_pair
 #define pb push_back
 #define all(c) begin(c), end(c)
-#define con(i,a,b) a<=i and i<=b
+#define mem(c,v) memset(c, v, sizeof c)
 #define uni(c) c.resize(distance(c.begin(), unique(all(c))))
 
 #define rep(i,n) for(ll i=0, _n=(n); i<_n; i++)
@@ -32,6 +32,7 @@ int main() {
 	while(q--) main1();
 	return 0;
 }
+
 /***************************************************************************/
 int np(0), prime[N];
 bool isprime[N];
@@ -92,7 +93,7 @@ struct dsu {
 		par[b]=a;
 	}
 };
-TTi struct dsu {
+template<class T> struct dsu {
 	map<T,T> par,sz;
 	T root(T a) {
 		if(par.find(a)==par.end() or par[a]==a) return par[a]=a;
@@ -102,7 +103,7 @@ TTi struct dsu {
 }
 /***************************************************************************/
 const int M=2;
-TTi void mul(T a[M][M], T b[M][M]) {
+template<class T> void mul(T a[M][M], T b[M][M]) {
 	T c[M][M];
 	rep(i,M)rep(j,M) {
 		ll temp=0;
@@ -111,7 +112,7 @@ TTi void mul(T a[M][M], T b[M][M]) {
 	}
 	rep(i,M)rep(j,M) a[i][j]=c[i][j];
 }
-TTi pwr(T a[M][M], ll n) {
+template<class T> pwr(T a[M][M], ll n) {
 	assert(n>=0);
 	T temp[M][M];
 	rep(i,M)rep(j,M) temp[i][j]=a[i][j], a[i][j]=i==j;
@@ -122,13 +123,13 @@ TTi pwr(T a[M][M], ll n) {
 	}
 }
 /***************************************************************************/
-TTi void in(T&p) {
+template<class T> void in(T&p) {
 	p=0;char neg=0,ch=0;
 	while(ch<0x30 or ch>0x39) {if(ch=='-')neg=1; ch=getchar();}
 	while(0x30<=ch and ch<=0x39) {p=(p<<1)+(p<<3)+(ch&15); ch=getchar();}
 	if(neg)p=-p;
 }
-TTi void out(T n) {
+template<class T> void out(T n) {
 	char d[20],i=0;
 	if(n<0){putchar('-'); n=-n;}
 	do{d[i++]=(n%10)|0x30; n/=10;} while(n);
@@ -138,18 +139,17 @@ TTi void out(T n) {
 /***************************************************************************/
 inline int high(ll n) { return 63 - __builtin_clzll(n);} // location of highest set bit
 #define pq(c) priority_queue<c,vector<c>,compare<c>>
-TTi struct compare {
+template<class T> struct compare {
 	bool operator()(const T& l, const T& r) const {
 		return l.Y > r.Y;
 	}
 };
 #define umap(key, val) unordered_map<key,val,hashed<key>>
-TTi struct hashed {
+template<class T> struct hashed {
 	size_t operator()(T const& c) const {
 		return c.X+231LL*c.Y;
 	}
 }
-
 vi c(a, a+n); sort(all(c)); uni(c);
 map<int,int> id;
 int k(0); for(auto x: c) id[x]=k++;
@@ -208,14 +208,10 @@ inline ll ncr(ll n, ll r) {
 257		577		1009		2213
 /***************************************************************************/
 while(l<r) {
-	//minimum ok..
-	mid=l+r>>1;
-	if(ok(mid)) r=mid;
-	else l=mid+1;
-	//maximum ok..
-	mid=l+r+1>>1;
-	if(ok(mid)) l=mid;
-	else r=mid-1;
+	//minimum ok..			|	//maximum ok..
+	mid=l+r>>1;				|	mid=l+r+1>>1;
+	if(ok(mid)) r=mid;		|	if(ok(mid)) l=mid;
+	else l=mid+1;			|	else r=mid-1;
 }
 while(l<r) {
 	if(f((l+l+r)/3) < f((l+r+r)/3)) l=(l+l+r)/3;
@@ -237,80 +233,93 @@ inline int rmq(int l, int r) {
 	return min(m[l][k], m[r-(1<<k)+1][k]);
 }
 /***************************************************************************/
+struct nod {} t[N];
+int n, a[N];
+inline nod merge(nod a, nod b) {}
+inline void build() {
+    for(int i=n;i--;) t[n+i]=nod(a[i]);
+    for(int i=n;--i;) t[i]=merge(t[i<<1], t[i<<1|1]);
+}
+inline void  upd(int p, int v) {
+    t[n+p]=nod(v); // t[n+p]=merge(t[n+p],nod(v));
+    for(int i=n+p;i>>=1;) t[i]=merge(t[i<<1], t[i<<1|1]);
+}
+inline nod get(int l, int r) {
+    nod lt(), rt(); // identity
+    for(l+=n,r+=n+1; l<r; l>>=1,r>>=1) {
+        if(l&1) lt=merge(lt, t[l++]);
+        if(r&1) rt=merge(t[--r], rt);
+    }
+    return merge(lt,rt);
+}
+/***************************************************************************/
+ll bt[N], a[N], nb;
+inline void upd(int x, ll val) {
+    x++;
+    for(int i=x; i<=nb; i+=i&-i)
+        bt[i]+=val;
+}
+inline ll sumh(int x) {
+    ll sum=0;
+    for(int i=x; i>0; i^=i&-i)
+        sum+=bt[i];
+    return sum;
+}
+inline ll sum(int x, int X) {
+    X++;
+    return sumh(X) - sumh(x);
+}
+/**********************************/
+ll bt[N], a[N], nb;
+inline ll get(int x) {
+    ll sum=0; x++;
+    for(int i=x; i>0; i^=i&-i)
+        sum+=bt[i];
+    return sum;
+}
+inline void updh(int x, ll val) {
+    x++;
+    for(int i=x; i<=nb; i+=i&-i)
+        bt[i]+=val;
+}
+inline void upd(int x, int X, ll val) {
+    X++;
+    updh(X, -val);
+    updh(x, val);
+}
+/**********************************/
+ll bt1[N], bt2[N], nb;
+inline void updh(int x, ll val, ll *bt) {
+    x++;
+    for(int i=x; i<=nb; i+=i&-i)
+        bt[i]+=val;
+}
+inline void upd(int x, int X, ll val) {
+    X++;
+    updh(X, -val, bt1); updh(X, -val*X, bt2);
+    updh(x, val, bt1); updh(x, val*x, bt2);
+}
+inline ll sumhh(int x, ll *bt) {
+    ll sum=0;
+    for(int i=x; i>0; i^=i&-i)
+        sum+=bt[i];
+    return sum;
+}
+inline ll sumh(int x) {
+    return sumhh(x, bt1)*x - sumhh(x, bt2);
+}
+inline ll sum(int x, int X) {
+    X++;
+    return sumh(X) - sumh(x);
+}
+/***************************************************************************/
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
-TTi using oset = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template<class T> using oset = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 s.insert(x); s.erase(x); s.erase(s.lower_bound(x));
 s.order_of_key(x); // 0-based index of least a[i] >= x
 *s.find_by_order(i); // a[i]
-/***************************************************************************/
-// In main(), only initialize nf, S, T, and call add() to build graph
-const int V = 270;
-const int E = V * V * 2;
-const int INF = (int)1e9;
-
-struct edge {
-    int v, to, cap, flow;
-};
-
-edge ed[E];
-int edSz;   //edSz=2*i for ith edge and 2*i+1 is its reverse   
-vector<int> g[V];
-int nf, S, T, dist[V], idx[V], q[V], topQ;
-
-void add(int v, int to, int cap) {
-    g[v].pb(edSz);
-    ed[edSz++] = {v,to,cap,0};
-    g[to].pb(edSz);
-    ed[edSz++] = {to,v,cap,0}; // undirected
-}
-
-bool bfs() {
-    rep(i,nf) dist[i]=INF;
-    dist[S]=0;
-    topQ=1;
-    q[0]=S;
-    for(int k=0; k<topQ; k++) {
-        int v=q[k];
-        for(int id: g[v]) {
-            edge e=ed[id];
-            if(e.cap==e.flow) continue;
-            int to=e.to;
-            if(dist[to]<=dist[v]+1) continue;
-            dist[to]=dist[v]+1;
-            q[topQ++]=to;
-        }
-    }
-    return dist[T]!=INF;
-}
-
-int dfs(int v, int flow) {
-    if (v==T or flow==0) return flow;
-    int res=0;
-    for(int &i=idx[v]; i<(int)g[v].size(); i++) {
-        int id=g[v][i];
-        edge e=ed[id];
-        int to=e.to;
-        if(dist[to]!=dist[v]+1) continue;
-        int df=dfs(to, min(flow, e.cap-e.flow));
-        res+=df;
-        flow-=df;
-        ed[id].flow+=df;
-        ed[id^1].flow-=df;
-        if(flow==0) return res;
-    }
-    return res;
-}
-
-int getFlow() {
-    int res=0;
-    while(bfs()) {
-        rep(i,nf) idx[i] = 0;
-        res += dfs(S, INF);
-    }
-    return res;
-}
 /***************************************************************************/
 isnan(d); // returns true if double 'd' is NaN
 round(), floor(), ceil(), trunc(); // 5.5-> 6, 5, 6, 5 and -5.5-> -6, -6, -5, -5
