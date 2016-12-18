@@ -1,3 +1,4 @@
+// g++ -std=c++11 -O2 -fmax-errors=1 
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -23,8 +24,12 @@ const dbl eps=1e-12, pi=acosl(-1);
 const ll inf=1e16, mod=1e9+7;
 const int N=2e6+10;
 
-int main() {
+int main1() {
 	
+}
+int main() {
+	int q; cin >> q;
+	while(q--) main1();
 	return 0;
 }
 /***************************************************************************/
