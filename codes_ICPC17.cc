@@ -224,7 +224,7 @@ inline int rmq(int l, int r) {
 	return min(m[l][k], m[r-(1<<k)+1][k]);
 }
 /***************************************************************************/
-struct nod {} t[N];
+struct nod {} t[N<<1];
 int n, a[N];
 inline nod merge(nod a, nod b) {}
 inline void build() {
