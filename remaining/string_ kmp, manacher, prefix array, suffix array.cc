@@ -1,33 +1,3 @@
-int pref[1001000];
-template <typename T>
-void prefixarr(T& s) {
-    // pref[i] denotes 'j' such that s[0..j-1] == s[i-j+1..i]
-    int i = 1, j = 0, n = s.size();
-    rep(k,n) pref[k] = 0;
-    while(i < n)
-        if(s[i] == s[j]) pref[i++] = ++j;
-        else if(j) j = pref[j-1];
-        else i++;
-}
-
-template <typename T>
-vi kmp(T& s, T t) {
-    // finds list of occurrences of t in s
-    int m = s.size(), n = t.size(), i, j;
-    prefixarr(t);
-        
-    vi occur_pos;
-    i = j = 0;
-    while(i < m) {
-        if(s[i] == t[j]) i++, j++;
-        else if(j > 0) j = pref[j-1];
-        else i++;
-        
-        if(j == n) occur_pos.pb(i-n), j = pref[j-1];
-    }
-    return occur_pos;
-}
-
 template <typename T>
 vi manacher(T& s) {
     // len[i] denotes length of maximal palindrome centered at i-1>>1
