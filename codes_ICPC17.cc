@@ -24,6 +24,8 @@ const dbl eps=1e-12, pi=acosl(-1);
 const ll inf=1e16, mod=1e9+7;
 const int N=2e6+10;
 int main() {}
+freopen("f.in", "r", stdin);
+freopen("f.out", "w", stdout);
 /***************************************************************************/
 int np(0), prime[N];
 bool isprime[N];
