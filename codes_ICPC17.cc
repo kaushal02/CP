@@ -72,6 +72,8 @@ inline ll pollardrho(ll n) { // O(n^0.25)
 	return d;
 }
 /***************************************************************************/
+#ways to denote n as sum of four squares = 8 * (divsum(n) - 4*divsum(n/4))
+/***************************************************************************/
 struct dsu {
 	vi par, sz;
 	dsu(int n): par(n), sz(n), iota(all(par),0) {}
