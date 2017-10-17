@@ -10,4 +10,4 @@ _bitmask		_dp			_ncr			_grid			_direction
 _policy_tree		_multiset		_pq			_tuple			_bitset
 _query_buffering	_offline		_sqrt_decomposition	_line_sweep		_MO
 _floyd_warshall		_grundy			_lca			_euler_path		_merge
-_counting		_inclusion-exclusion
+_counting		_inclusion-exclusion  _augmented_tree
