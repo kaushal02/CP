@@ -4,7 +4,7 @@ This repo contains solutions to various programming problems available online, m
 It also has a few template files related to specific algorithms or data structure.
 
 Each solution file is appended with a `commented` section on top. It consists of:
-- Tags
+- [Tags](https://github.com/kaushal02/CP#tags)
 - Problem description and/or link
 - Runtime complexity
 
@@ -14,14 +14,16 @@ Every solution file starts with one or more tags representing the algorithm/data
 
 Topic | 1 | 2 | 3 | 4 | 5
 --- | --- | --- | --- | --- | ---
-**GRAPH:** | `_bfs` | `_01bfs` | `_dij` | `_MST` | `_floyd_warshall`
-**TREE:** | `_dfs` | `_tree_flatten` | `_ancestor` | `_LCA` | `_euler_path`
-**STRING:** | `_kmp` | `_prefix_array` | `_hashing` |  | 
-**RANGE:** | `_lazy` | `_segment_tree` | `_RMQ` | `_BIT` | 
-**STRUCT:** | `_DSU` | `_policy_tree` | `_direction` | `_bitset` | `_offline`
-**ALGO1:** | `_MO` | `_sqrt_decomp` | `_grundy` | `_HLD` | `_fast_matrix_multiply`
-**ALGO2:** | `_DP` | `_recursion` | `_nCr` | `_sieve` | `_prime_factorize`
-**ALGO3:** | `_cycle` | `_line_sweep` | `_subarray` | `_bitmask` | `inclusion_exclusion`
+*GRAPH* | `_bfs` | `_01bfs` | `_dij` | `_MST` | `_floyd_warshall`
+*TREE* | `_dfs` | `_tree_flatten` | `_ancestor` | `_LCA` | `_euler_path`
+*STRING* | `_kmp` | `_prefix_array` | `_hashing` |  | 
+*RANGE* | `_lazy` | `_segment_tree` | `_RMQ` | `_BIT` | 
+*STRUCT* | `_DSU` | `_policy_tree` | `_direction` | `_bitset` | `_offline`
+*ALGO 1* | `_MO` | `_sqrt_decomp` | `_grundy` | `_HLD` | `_fast_matrix_multiply`
+*ALGO 2* | `_DP` | `_recursion` | `_nCr` | `_sieve` | `_prime_factorize`
+*ALGO 3* | `_cycle` | `_line_sweep` | `_subarray` | `_bitmask` | `inclusion_exclusion`
+
+
 
 # ACKNOWLEDGEMENT
 
