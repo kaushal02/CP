@@ -1,5 +1,5 @@
 /*
-_prefix_array _kmp _generic
+_prefix_array _kmp
 
 O(linear)
 */
