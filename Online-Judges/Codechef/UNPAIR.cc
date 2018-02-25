@@ -79,3 +79,105 @@ int main() {
     }
     return 0;
 }
+//--------------------------------------------------------------//
+/*
+_DSU _MST
+
+O(n^2 * logn)
+*/
+// Time erodes gratitude more quickly than it does beauty!
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+typedef vector<int> vi;
+
+#define X first
+#define Y second
+#define rep(i,n) for(ll i=0; i<(n); i++)
+#define rep1(i,a,b) for(ll i=a; i<=(b); i++)
+#define rep2(i,b,a) for(ll i=b; i>=(a); i--)
+#define mem(a,val) memset(a, (val), sizeof a)
+#define mp make_pair
+#define pb push_back
+#define all(c) (c).begin(), (c).end()
+#define uni(c) c.resize(distance(c.begin(), unique(all(c))))
+#define fix(c,sz_val...) c.clear();c.resize(sz_val);
+#define tr(c,it,ctype...) for(ctype::iterator it = c.begin(); it != c.end(); ++it)
+#define io ios_base::sync_with_stdio(false);cin.tie(NULL)
+#define IO(input_file_name) ifstream cin(input_file_name);ofstream cout("output.txt")
+#define print(ans) cout<<"Case #"<<_t<<": "<<ans<<"\n"
+const int mod = 1e9 + 7;
+
+struct node {
+    int x, y, val;
+    node(int _x, int _y, int _v):
+        x(_x), y(_y), val(_v) {}
+};
+bool comp(node l, node r) {
+    return l.val < r.val;
+}
+
+struct dsu
+{
+    vi par;
+    dsu(int n): par(n) {rep(i,n) par[i] = i;}
+    void adopt(int a, int b) { par[dad(b)] = dad(a);}
+    int dad(int a) { return a == par[a] ? a : par[a] = dad(par[a]);}
+    bool dogla(int a, int b) { return dad(a) != dad(b);}
+};
+
+typedef vector< vector<pii> > vvp;
+ll mst_kruskal(vvp& g)
+{
+    vector<node> temp;
+    int n = g.size();
+    rep(i,n)
+        rep(j,g[i].size())
+            temp.pb(node(i,g[i][j].X,g[i][j].Y));
+    sort(all(temp), comp);
+    dsu d(n);
+    
+    ll ans(0);
+    int edgeid(0), k(0), m(temp.size());
+    while(edgeid < n-1 && k < m)
+    {
+        if(d.dogla(temp[k].x,temp[k].y))
+        {
+            edgeid++;
+            ans += temp[k].val;
+            d.adopt(temp[k].x, temp[k].y);
+        }
+        k++;
+    }
+    return edgeid == n-1 ? 2LL*ans : -1;
+}
+
+void f()
+{
+    int w;
+    int n;cin>>n;
+    if(n == 1)
+    {
+        cin >> w;
+        cout << w - (w == 0) << endl;
+        return;
+    }
+    vvp g(n);
+    rep(i,n)rep(j,n)
+    {
+        cin>>w;
+        if(w == 0 || i == j) continue;
+        g[i].pb(mp(j, w));
+        g[j].pb(mp(i, w));
+    }
+    cout << mst_kruskal(g) << endl;
+}
+
+int main()
+{
+    io;
+    int t;cin>>t;rep(i,t)f();
+    return 0;
+}
