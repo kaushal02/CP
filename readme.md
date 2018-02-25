@@ -16,7 +16,7 @@ Topic | 1 | 2 | 3 | 4 | 5
 --- | --- | --- | --- | --- | ---
 *GRAPH* | `_bfs` | `_01bfs` | `_dij` | `_MST` | `_floyd_warshall`
 *TREE* | `_dfs` | `_tree_flatten` | `_ancestor` | `_LCA` | `_euler_path`
-*STRING* | `_kmp` | `_prefix_array` | `_hashing` |  | 
+*STRING* | `_kmp` | `_prefix_array` | `_hashing` |  | `_suffix_array` 
 *RANGE* | `_lazy` | `_segment_tree` | `_RMQ` | `_BIT` | 
 *STRUCT* | `_DSU` | `_policy_tree` | `_direction` | `_bitset` | `_offline`
 *ALGO 1* | `_MO` | `_sqrt_decomp` | `_grundy` | `_HLD` | `_fast_matrix_multiply`
