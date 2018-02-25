@@ -1,8 +1,9 @@
 /*
-_BIT
-Similar to SPOJ/DQUERY
+_BIT _offline
+Finding number of unique elements in a range
+https://www.hackerrank.com/contests/university-codesprint-4/challenges/unique-art/problem
 
-O((n+q)*logn)
+O(nlogn + qlogq)
 */
 #include <bits/stdc++.h>
 using namespace std;
