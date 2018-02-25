@@ -1,0 +1,88 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define pdd pair<double,double>
+#define X first
+#define Y second
+#define rep(i,a) for(ll i=0;i<a;++i)
+#define repp(i,a,b) for(ll i=a;i<b;++i)
+#define FILL(a,x) memset(a,x,sizeof(a))
+#define    foreach( gg,itit )	for( typeof(gg.begin()) itit=gg.begin();itit!=gg.end();itit++ )
+#define	mp make_pair
+#define	pb push_back
+#define fastScan ios_base::sync_with_stdio(0); cin.tie(NULL);
+
+ll M=1000000007,an;
+map<ll,ll> P,R;
+
+ll mpe(ll base, ll exponent, int modulus)
+{  
+    ll result = 1;
+    while (exponent > 0)
+    {
+        if (exponent % 2 == 1)
+            result = (result * base) % modulus;
+        exponent = exponent >> 1;
+        base = (base * base) % modulus;
+    }
+    return result;
+}
+ll fin(ll no){
+    if(P.find(no)==P.end() || P[no]==no){P[no]=no;return no;}
+    P[no]=fin(P[no]);
+    return P[no];
+}
+
+void unite(ll A,ll B){
+    ll a=fin(A);ll b=fin(B);
+    if(R.find(a)==R.end() && R.find(b)==R.end()){
+        R[a]=1;
+        P[b]=a;
+    }
+    else if(R.find(b)==R.end()){
+        P[a]=b;
+        R[b]=1;
+    }
+    else if(R.find(a)==R.end()){
+        R[a]=1;
+        P[b]=a;
+    }
+    else{
+        if(R[a]<R[b]){
+            P[b]=a;
+        }
+        else if(R[a]==R[b]){
+            R[a]++;
+        P[b]=a;
+        }
+        else{
+            P[a]=b;
+        }
+    }
+    return;
+}
+
+
+
+int main()
+{
+    fastScan;
+    ll n,k;
+    cin>>n>>k;
+    an=mpe(2,n,M);
+    rep(i,k){
+        ll u,v;
+        cin>>u>>v;
+        u--;
+        if(fin(u)!=fin(v)){
+            an*=mpe(2,M-2,M);
+            an%=M;
+            unite(u,v);
+        }
+        cout<<an<<endl;
+    }
+    
+    return 0;
+}

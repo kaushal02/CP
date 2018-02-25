@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define pdd pair<double,double>
+#define X first
+#define Y second
+#define rep(i,a) for(ll i=0;i<a;++i)
+#define repp(i,a,b) for(ll i=a;i<b;++i)
+#define all(c) (c).begin(), (c).end()
+#define FILL(a,x) memset(a,x,sizeof(a))
+#define foreach( gg,itit ) for( __typeof(gg.begin()) itit=gg.begin();itit!=gg.end();itit++ )
+#define	mp make_pair
+#define	pb push_back
+#define fastScan ios_base::sync_with_stdio(0); cin.tie(NULL);
+ll M=1e9+7;
+
+double eps=1e-9;
+
+ll mpe(ll base, ll exponent, ll modulus)
+{  
+    ll result = 1;
+    while (exponent > 0)
+    {
+        if (exponent % 2 == 1)
+            result = result*base%modulus ;
+        exponent = exponent >> 1;
+        base =  base*base%modulus ;
+    }
+    return result;
+}
+
+ 
+int main()
+{
+    fastScan;
+    //freopen("kitchen.in", "r", stdin);
+    //freopen("kitchen.out", "w", stdout);
+    
+    
+    
+    return 0;
+}

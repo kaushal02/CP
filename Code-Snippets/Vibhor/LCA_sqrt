@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define pdd pair<double,double>
+#define X first
+#define Y second
+#define rep(i,a) for(ll i=0;i<a;++i)
+#define repp(i,a,b) for(ll i=a;i<b;++i)
+#define all(c) (c).begin(), (c).end()
+#define FILL(a,x) memset(a,x,sizeof(a))
+#define    foreach( gg,itit )	for( typeof(gg.begin()) itit=gg.begin();itit!=gg.end();itit++ )
+#define	mp make_pair
+#define	pb push_back
+#define fastScan ios_base::sync_with_stdio(0); cin.tie(NULL);
+ll M=1e9+7;
+
+int par[1005][16],ar[1005]={0},root,h[1005];
+vector<int> vec[1005];
+
+//http://www.spoj.com/problems/LCA/
+
+void dfs(int v,int p){
+    if(p!=-1){h[v]=h[p]+1;par[v][0]=p;}
+    repp(i,1,16){
+        if(par[v][i-1]+1)
+        par[v][i]=par[par[v][i-1]][i-1];
+    }
+    for(auto i:vec[v]){
+        dfs(i,v);
+    }
+
+}
+
+int lca(int u,int v){
+    if(u==v)return u;
+    if(h[u]<h[v])swap(u,v);
+    int i=15;
+    for(i=15;i>=0;i--)
+    if( par[u][i]+1 && h[par[u][i]]>=h[v]){
+        u=par[u][i];
+    }
+    if(u==v)return u;
+    i=15;
+    for(i=15;i>=0;i--)
+    if( par[u][i]!=par[v][i]){
+        u=par[u][i];
+        v=par[v][i];
+    }
+    return par[v][0];
+}
+
+
+int main()
+{
+    fastScan;
+    int t,cas=1;
+    cin>>t;
+    while(t--){
+    rep(i,1005){
+        rep(j,16)par[i][j]=-1;
+        vec[i].clear();
+    }
+    int n;
+    cin>>n;
+    rep(i,n){
+        int m;
+        cin>>m;
+        int a;
+        rep(j,m){
+            cin>>a;
+            ar[a]=1;
+            vec[i+1].pb(a);
+        }
+    }
+
+    dfs(1,-1);
+    int q;
+    cin>>q;
+    cout<<"Case "<<cas<<":"<<endl;
+    rep(i,q){
+        int u,v;
+        cin>>u>>v;
+        cout<<lca(u,v)<<endl;
+    }
+    cas++;
+    }
+
+
+    return 0;
+}

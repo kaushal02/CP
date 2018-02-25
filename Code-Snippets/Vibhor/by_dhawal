@@ -1,0 +1,70 @@
+ll mp(ll base, ll exponent)
+{  ll modulus=mod;
+    ll result = 1;
+    while (exponent > 0)
+    {
+        if (exponent % 2 == 1)
+            result = (result * base) % modulus;
+        exponent = exponent >> 1;
+        base = (base * base) % modulus;
+    }
+    return result;
+}
+//////////////////////////// nCr
+ll a[1005][505];
+for(int i=0;i<1001;i++)
+    for(int j=0;j<501;j++){
+        if(j==0 ||  i==j){a[i][j]=1;continue;}
+        if(j>i){a[i][j]=0;continue;}
+        a[i][j]=(a[i-1][j]+a[i-1][j-1])%mod;
+    }
+///////////////// sieve
+const int MAX = 1e6;
+int np = 0, prime[MAX + 1];
+bool isprime[MAX + 1];
+
+void sieve(int N = MAX)
+{
+    memset(isprime, true, sizeof isprime);
+    isprime[0] = isprime[1] = false;
+    for(int i = 2; i < N+1; ++i)
+        if(isprime[i])
+        {
+            for(int j = i; (long long)i*j < N+1; ++j)
+                isprime[i*j] = false;
+            prime[++np] = i;
+        }
+}
+///////////segtree
+int arr[100005],tree[4*100005]={0};
+
+void build_tree(int node, int a, int b) {
+    if(a > b) return;
+  	if(a == b) {tree[node] = arr[a]; return;}
+	build_tree(node*2, a, (a+b)/2);
+	build_tree(node*2+1, 1+(a+b)/2, b);
+	tree[node] = tree[node*2] + tree[node*2+1];
+}
+
+void update_tree(int node, int a, int b, int i, int j, int value) {
+    if(a > b || a > j || b < i) return;
+  	if(a == b) { tree[node] += value;return;}
+    update_tree(node*2, a, (a+b)/2, i, j, value);
+	update_tree(1+node*2, 1+(a+b)/2, b, i, j, value);
+    tree[node] = (tree[node*2]+tree[node*2+1]);
+}
+
+int query_tree(int node, int a, int b, int i, int j) {
+	if(a > b || a > j || b < i) return 0;
+    if(a >= i && b <= j) return tree[node];
+    int q1 = query_tree(node*2, a, (a+b)/2, i, j);
+	int q2 = query_tree(1+node*2, 1+(a+b)/2, b, i, j);
+    int res = (q1+q2);
+	return res;
+}
+
+build_tree(1, 0, n-1);
+update_tree(1, 0, n-1, 0, 6, 5);
+query_tree(1, 0, n-1, 0, n-1)
+
+//////////////////////////

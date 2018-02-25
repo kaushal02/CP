@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define pdd pair<double,double>
+#define X first
+#define Y second
+#define rep(i,a) for(ll i=0;i<a;++i)
+#define repp(i,a,b) for(ll i=a;i<b;++i)
+#define FILL(a,x) memset(a,x,sizeof(a))
+#define    foreach( gg,itit )	for( typeof(gg.begin()) itit=gg.begin();itit!=gg.end();itit++ )
+#define	mp make_pair
+#define	pb push_back
+#define fastScan ios_base::sync_with_stdio(0); cin.tie(NULL);
+
+
+vector<ll> vec[100005],rev[100005],ve;
+ll n,m,vis[100005]={0},ans[100005]={0},vis2[100005]={0};
+stack<ll> st;
+
+void dfs(ll no){
+    vis[no]=1;                   //1st dfs to put element in stack
+    rep(i,vec[no].size()){
+        if(vis[vec[no][i]]==0)
+        dfs(vec[no][i]);
+    }
+    st.push(no);
+    return;
+}
+
+ll ndfs(ll no){
+    ll ans=1;                // 2nd dfs revsing direction and according to stack
+    vis2[no]=1;              //return the nubmer of nodes in strongly connected component
+    ve.pb(no);               //and vector ve contains these nodes
+    stack<ll> s;
+    s.push(no);
+    while(!s.empty()){
+        ll tp=s.top();
+        s.pop();
+        if(rev[tp].size()==0 )continue;
+        rep(i,rev[tp].size()){
+            if(vis2[rev[tp][i]]==0){
+                vis2[rev[tp][i]]=1;
+                ve.pb(rev[tp][i]);
+                ans++;
+                s.push(rev[tp][i]);
+            }
+        }
+    }
+    return ans;
+}
+
+int main()
+{
+    fastScan;
+    cin>>n>>m;
+    ll a,b;
+    rep(i,m){
+        cin>>a>>b;
+        vec[a].pb(b);
+        rev[b].pb(a);
+    }
+    repp(i,1,n+1){
+        if(vis[i]==0)
+           dfs(i);
+    }
+    while(!st.empty()){
+        ll tp=st.top();   //2nd dfs that is on reverse graph
+        st.pop();
+        if(ans[tp]==0){
+            ll tmp=ndfs(tp);
+            rep(i,ve.size()){
+                ans[ve[i]]=tmp;
+            }
+            ve.clear();
+        }
+    }
+    repp(i,1,n+1){
+        if(ans[i]>1)
+         cout<<"1 ";
+        else
+          cout<<"0 ";
+    }
+
+    return 0;
+}

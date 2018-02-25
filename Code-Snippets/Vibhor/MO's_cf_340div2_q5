@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define pdd pair<double,double>
+#define X first
+#define Y second
+#define rep(i,a) for(ll i=0;i<a;++i)
+#define repp(i,a,b) for(ll i=a;i<b;++i)
+#define FILL(a,x) memset(a,x,sizeof(a))
+#define    foreach( gg,itit )	for( typeof(gg.begin()) itit=gg.begin();itit!=gg.end();itit++ )
+#define	mp make_pair
+#define	pb push_back
+#define fastScan ios_base::sync_with_stdio(0); cin.tie(NULL);
+#define C 320
+
+
+//http://codeforces.com/contest/617/problem/E
+
+bool cmp(pair<pii,int> p1 , pair<pii,int> p2){
+    if((p1.X.X)/C == (p2.X.X)/C) return p1.X.Y < p2.X.Y ;
+    return (p1.X.X)/C < (p2.X.X)/C ;
+}
+
+ll cnt[2100000]={0};
+int main()
+{
+    fastScan;
+    ll n,m,k,an[100005];
+    cin>>n>>m>>k;
+    ll a[100005]={0},b[100005]={0};
+    pair<pii,int> pr[100005];
+    repp(i,1,n+1){
+        cin>>a[i];
+        b[i]=b[i-1]^a[i];
+    }
+    rep(i,m){
+        cin>>pr[i].X.X>>pr[i].X.Y;
+        pr[i].X.X--;
+        pr[i].Y=i;
+    }
+    sort(pr,pr+m,cmp);
+    ll cur_l=1,cur_r=0,ans=0;
+    rep(i,m){
+        while(cur_l>pr[i].X.X){
+            cur_l--;
+            ans+=cnt[(k^b[cur_l])];
+            cnt[b[cur_l]]++;
+        }
+        while(cur_l<pr[i].X.X){
+            cnt[b[cur_l]]--;
+            ans-=cnt[k^b[cur_l]];
+            cur_l++;
+        }
+        while(cur_r<pr[i].X.Y){
+            cur_r++;
+            ans+=cnt[(k^b[cur_r])];
+            cnt[b[cur_r]]++;
+        }
+        while(cur_r>pr[i].X.Y){
+            cnt[b[cur_r]]--;
+            ans-=cnt[(k^b[cur_r])];
+            cur_r--;
+        }
+        
+        an[pr[i].Y]=ans;
+       // cout<<i<<"   "<<ans<<endl;
+
+    }
+    rep(i,m)
+     cout<<an[i]<<endl;
+
+    return 0;
+}

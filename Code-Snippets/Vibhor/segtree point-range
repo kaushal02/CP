@@ -1,0 +1,28 @@
+typedef int nod;
+
+const int N = 10 + 1e6;
+int n;
+int arr[N];
+nod tree[N << 1];
+inline nod combine(nod a, nod b) {
+    // Put the merging logic here
+}
+inline void build() {
+    for(int i = n; i--; )
+        tree[n + i] = nod(arr[i]); // modify
+    for(int i = n; --i; )
+        tree[i] = combine(tree[i << 1], tree[i << 1 | 1]); 
+}
+inline void update(int pos, int value) {
+    tree[n + pos] = nod(value); // tree[n + pos] = combine(tree[n + pos], nod(value));
+    for(int i = n + pos; i >>= 1; )
+        tree[i] = combine(tree[i << 1], tree[i << 1 | 1]);
+}
+inline nod query(int l, int r) {
+    nod ansl(0), ansr(0); // modify
+    for(l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
+        if(l & 1) ansl = combine(ansl, tree[l++]);
+        if(r & 1) ansr = combine(tree[--r], ansr);
+    }
+    return combine(ansl, ansr);
+}

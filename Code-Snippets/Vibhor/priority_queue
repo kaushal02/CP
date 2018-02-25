@@ -1,0 +1,14 @@
+struct node{
+    int no;
+    int co;
+};
+struct compare  
+ {  
+   bool operator()(const struct node& l, const struct node& r)  
+   {  
+       return l.co > r.co;  
+   }  
+ };
+
+
+priority_queue<struct node,vector<struct node>, compare > pq;

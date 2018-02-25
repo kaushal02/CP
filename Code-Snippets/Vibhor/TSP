@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define pdd pair<double,double>
+#define X first
+#define Y second
+#define rep(i,a) for(ll i=0;i<a;++i)
+#define repp(i,a,b) for(ll i=a;i<b;++i)
+#define all(c) (c).begin(), (c).end()
+#define FILL(a,x) memset(a,x,sizeof(a))
+#define    foreach( gg,itit )	for( typeof(gg.begin()) itit=gg.begin();itit!=gg.end();itit++ )
+#define	mp make_pair
+#define	pb push_back
+#define fastScan ios_base::sync_with_stdio(0); cin.tie(NULL);
+ll M=1e9+7;
+
+double eps=1e-9;
+
+ll mpe(ll base, ll exponent, ll modulus)
+{  
+    ll result = 1;
+    while (exponent > 0)
+    {
+        if (exponent % 2 == 1)
+            result = result*base%modulus ;
+        exponent = exponent >> 1;
+        base =  base*base%modulus ;
+    }
+    return result;
+}
+pll pts[20];
+double dis[20][20];
+ll n;
+double dista(ll x1,ll y1,ll x2,ll y2){
+    double res;
+    res=sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+    return res;
+}
+
+double dp[(1<<20)+5][21];
+ 
+int main()
+{
+    fastScan;
+    freopen("kitchen.in", "r", stdin);
+   freopen("kitchen.out", "w", stdout);
+    ll w,l,x,y;
+    cin>>w>>l;
+    cin>>n;
+    ll a,b;
+    repp(i,1,n+1){
+        cin>>a>>b;
+        pts[i]=mp(a,b);
+    }
+    double d1,d2,d3,d4,d;
+    repp(i,1,n+1){
+        repp(j,i+1,n+1){
+            d1=dista(pts[i].X*-1,pts[i].Y,pts[j].X,pts[j].Y);
+            d2=dista(pts[i].X,pts[i].Y*-1,pts[j].X,pts[j].Y);
+            d3=dista((pts[i].X+2*(w-pts[i].X)),pts[i].Y,pts[j].X,pts[j].Y);
+            d4=dista(pts[i].X,(pts[i].Y+2*(l-pts[i].Y)),pts[j].X,pts[j].Y);
+            d=min(d1,d2);
+            d3=min(d3,d4);
+            d=min(d,d3);
+            dis[i][j]=dis[j][i]=d;
+        }
+    }
+    cin>>x>>y;
+    repp(i,1,n+1){
+        dis[0][i]=dis[i][0]=dista(x,y,pts[i].X,pts[i].Y);
+    }
+    repp(i,1,n+1){
+        dis[n+1][i]=dis[i][n+1]=min(pts[i].X,min(pts[i].Y,min(w-pts[i].X,l-pts[i].Y)));
+    }
+    n+=2;
+    rep(i,(1<<n))rep(j,20)dp[i][j]=-1;
+    
+    int k,p;
+     dp[1][0]=0;
+        // TSP solution here,bitmask and DP
+        for (int i=1; i<(1<<n); i++) {// the current state
+            for (int j=0; j<n; j++) {// during the current state,the last station is j
+                if (dp[i][j]<-1+eps && dp[i][j]+eps>-1) continue;
+                for (k=1; k<n; k++) {//the next state is k
+                    if ((i & (1<<k))!=0) continue;
+                    p=(i + (1<<k));// the new state(join k)
+                    if (dp[p][k]==-1) dp[p][k]=dp[i][j]+dis[j][k];
+                    dp[p][k]=min(dp[p][k],dp[i][j]+dis[j][k]);
+                }
+            }
+        }
+    
+   printf("%0.8lf",dp[(1<<n)-1][n-1]);
+    
+    
+    return 0;
+}

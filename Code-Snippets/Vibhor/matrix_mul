@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define pdd pair<double,double>
+#define X first
+#define Y second
+#define rep(i,a) for(ll i=0;i<a;++i)
+#define repp(i,a,b) for(ll i=a;i<b;++i)
+#define all(c) (c).begin(), (c).end()
+#define FILL(a,x) memset(a,x,sizeof(a))
+#define    foreach( gg,itit )	for( typeof(gg.begin()) itit=gg.begin();itit!=gg.end();itit++ )
+#define	mp make_pair
+#define	pb push_back
+#define fastScan ios_base::sync_with_stdio(0); cin.tie(NULL);
+ll mod=1e9+9;
+
+//http://codeforces.com/problemset/gymProblem/100735/B
+//Matrix multiplication of size mx*mx
+
+ll n, m;
+const int mx = 25;
+ll pow2[65][mx][mx], base[mx], temp_vec[mx];
+inline void seed() {
+    // Initialize values for pow2[0][i][j] and base[i]
+    ll c, x;
+    cin >> n >> m >> c;
+    rep(i,n) cin >> base[n - 1 - i];
+    rep(i,c) cin >> x, pow2[0][0][x - 1] = 1;
+    repp(i,1,mx) pow2[0][i][i - 1] = 1;
+}
+inline void store() {
+    repp(x,1,61)rep(i,mx)rep(j,mx) {
+        rep(k,mx) pow2[x][i][j] += pow2[x-1][i][k] * pow2[x-1][k][j] % mod;
+        pow2[x][i][j] %= mod;
+    }
+}
+inline void mul(ll vec[mx], int depth) {
+    FILL(temp_vec, 0);
+    rep(i,mx) {
+        rep(j,mx) temp_vec[i] += pow2[depth][i][j] * vec[j] % mod;
+        temp_vec[i] %= mod;
+    }
+    rep(i,mx) vec[i] = temp_vec[i];
+}
+inline ll get(ll n) {
+    ll temp[mx];
+    rep(i,mx) temp[i] = base[i];
+    int depth = 0;
+    while(n) {
+        if(n % 2) mul(temp, depth);
+        n >>= 1;
+        depth++;
+    }
+    return temp[0]; // Final vector, ask whats needed from temp[]
+}
+
+int main() {
+//    freopen("input.txt", "r", stdin);
+//    freopen("output.txt", "w", stdout);
+    seed();
+    store();
+    if(m < n) cout << base[n - m];
+    else cout << get(m - n);
+    return 0;
+}
