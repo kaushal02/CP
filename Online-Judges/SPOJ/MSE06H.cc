@@ -1,8 +1,7 @@
 /*
-_BIT _hashing
-[SPOJ] http://www.spoj.com/problems/MCHAOS/
+_BIT
 
-O(IlogI) where I is input length
+O(k*log(max(k,n,m)))
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -27,13 +26,21 @@ typedef vector<int> vi;
 
 const ll inf = 1e16, mod = 1e9 + 7;
 const double eps = 1e-16;
-const int N = 1e5 + 10;
+const int N = 1e3 + 10;
+
+template <typename T = int>
+inline void in(T&p) {
+    p=0;register bool negative=false; register char ch=0;
+    while(ch<0x30 or ch>0x39) {if(ch=='-') negative=true; ch=getchar();}
+    while(ch>=0x30 and ch<=0x39) {p=(p<<1)+(p<<3)+(ch&15); ch=getchar();}
+    if(negative) p=-p;
+}
 
 string s[N], rs[N];
 int x[N], y[N];
-pii a[N];
+pii a[N*N];
 
-ll bt[N], nb;
+ll bt[N], nb=N;
 inline void add(int x, ll val=1) {
     x++;
     for(int i=x; i<=nb; i+=i&-i)
@@ -50,29 +57,22 @@ inline ll sum(int x, int X) {
     return sumh(X) - sumh(x);
 }
 
-int main() {
-    int n; cin >> n;
-    rep(i,n) cin >> s[i];
-    rep(i,n) rs[i] = s[i], reverse(all(rs[i]));
-
-    vector<string> v(n); rep(i,n) v[i]=s[i];
-    sort(all(v)); uni(v);
-    map<string,int> ids;
-    int k(0); for(string s: v) ids[s]=k++;
-
-    vector<string> w(n); rep(i,n) w[i]=rs[i];
-    sort(all(w)); uni(w);
-    map<string,int> idrs;
-    int l(0); for(string s: w) idrs[s]=l++;
-
-    rep(i,n) a[i]={ids[s[i]], idrs[rs[i]]};
-    sort(a, a+n);
-    nb=l;
+void solve(int kase) {
+    memset(bt, 0, sizeof bt);
+    int n, m, k; in(n), in(m), in(k);
+    rep(i,k) in(a[i].X), in(a[i].Y);
+    sort(a, a+k);
+    
     ll ans(0);
-    rep(i,n) {
+    rep(i,k) {
         ans+=sum(a[i].Y+1,nb-1);
         add(a[i].Y);
     }
-    cout << ans << '\n';
+    cout << "Test case " << kase << ": " << ans << '\n';
+}
+
+int main() {
+    int t; in(t);
+    rep1(i,t) solve(i);
     return 0;
 }

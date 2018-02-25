@@ -1,4 +1,4 @@
-// g++ -std=c++11 -O2 -fmax-errors=1 
+// g++ -std=c++11 -O2 -fmax-errors=1
 #include <bits/stdc++.h>
 using namespace std;
 
