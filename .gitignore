@@ -1,7 +1,6 @@
 *.o
 *.out
 
-# fast compilation files
 a.cc
 a.in
 a.output
