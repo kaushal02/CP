@@ -18,10 +18,10 @@ Topic | 1 | 2 | 3 | 4 | 5
 **TREE:** | `_dfs` | `_tree_flatten` | `_ancestor` | `_LCA` | `_euler_path`
 **STRING:** | `_kmp` | `_prefix_array` | `_hashing` |  | 
 **RANGE:** | `_lazy` | `_segment_tree` | `_RMQ` | `_BIT` | 
-**STRUCTS:** | `_DSU` | `_policy_tree` | `_direction` | `_bitset` | `_offline`
-**ALGOS:** | `_MO` | `_sqrt_decomp` | `_grundy` | `_HLD` | `_fast_matrix_multiply`
-  | `_DP` | `_recursion` | `_nCr` | `_sieve` | `_prime_factorize`
-  | `_cycle` | `_line_sweep` | `_subarray` | `_bitmask` | `inclusion_exclusion`
+**STRUCT:** | `_DSU` | `_policy_tree` | `_direction` | `_bitset` | `_offline`
+**ALGO1:** | `_MO` | `_sqrt_decomp` | `_grundy` | `_HLD` | `_fast_matrix_multiply`
+**ALGO2:** | `_DP` | `_recursion` | `_nCr` | `_sieve` | `_prime_factorize`
+**ALGO3:** | `_cycle` | `_line_sweep` | `_subarray` | `_bitmask` | `inclusion_exclusion`
 
 # ACKNOWLEDGEMENT
 
