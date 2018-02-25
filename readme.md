@@ -21,8 +21,7 @@ Topic | 1 | 2 | 3 | 4 | 5
 *STRUCT* | `_DSU` | `_policy_tree` | `_direction` | `_bitset` | `_offline`
 *ALGO 1* | `_MO` | `_sqrt_decomp` | `_grundy` | `_HLD` | `_fast_matrix_multiply`
 *ALGO 2* | `_DP` | `_recursion` | `_nCr` | `_sieve` | `_prime_factorize`
-*ALGO 3* | `_cycle` | `_line_sweep` | `_subarray` | `_bitmask` | `inclusion_exclusion`
-
+*ALGO 3* | `_cycle` | `_line_sweep` | `_subarray` | `_bitmask` | `_inclusion_exclusion`
 
 
 # ACKNOWLEDGEMENT
