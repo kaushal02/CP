@@ -1,5 +1,4 @@
 /*
-_stack _queue
 
 O(linear)
 */

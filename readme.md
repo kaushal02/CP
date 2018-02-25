@@ -12,45 +12,16 @@ Each solution file is appended with a `commented` section on top. It consists of
 
 Every solution file starts with one or more tags representing the algorithm/data structure used to solve the problem. These tags can also be used to find other related problems. Here is a complete list of tags used in this repo:
 
-\_sieve
-\_prime\_factorize
-\_cycle
-\_lazy
-\_segment\_tree
-\_fast\_matrix\_multiply
-\_tree\_flatten
-\_ancestor
-\_dfs
-\_bfs
-\_bitmask
-\_bitset
-\_MST
-\_kmp
-\_prefix\_array
-\_LCA
-\_floyd\_warshall
-\_line\_sweep
-\_01bfs
-\_offline
-\_policy\_tree
-\_DSU
-\_RMQ
-\_BIT
-\_stack
-\_queue
-\_sqrt\_decomp
-\_direction
-\_dij
-\_DP
-\_nCr
-\_grundy
-\_hashing
-\_euler\_path
-\_HLD
-\_inclusion\_exclusion
-\_subarray
-\_MO
-\_compression
+--- | --- | --- | --- | --- | ---
+**GRAPH:** | `_bfs` | `_01bfs` | `_dij` | `_MST` | `_floyd_warshall`
+**TREE:** `_dfs` | `_tree_flatten` | `_ancestor` | `_LCA` | `_euler_path`
+**STRING:** `_kmp` | `_prefix_array` | `_hashing` | | 
+**RANGE:** `_lazy` | `_segment_tree` | `_RMQ` | `_BIT` | 
+--- | --- | --- | --- | --- | ---
+`_recursion` | `_DP` | `_nCr` | `_offline` | `_sieve` | `_prime_factorize`
+`_line_sweep` | `_MO` | `_sqrt_decomp` | `_grundy` | `_HLD` | `_fast_matrix_multiply`
+`_bitset` | `_DSU` | `_policy_tree` | `_direction` | |
+`_bitmask` | `_cycle` | `inclusion_exclusion` | `_subarray` | | 
 
 # ACKNOWLEDGEMENT
 

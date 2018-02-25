@@ -1,5 +1,5 @@
 /*
-_BIT _compression
+_BIT
 
 O(n*logn) per test case
 */
