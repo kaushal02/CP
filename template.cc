@@ -1,4 +1,3 @@
-// g++ -std=c++11 -O3 -fmax-errors=1
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
