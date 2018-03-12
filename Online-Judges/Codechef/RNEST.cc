@@ -1,5 +1,5 @@
 /*
-_line_sweep
+_sweep
 
 O(n*log(n))
 */

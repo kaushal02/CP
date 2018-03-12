@@ -1,3 +1,8 @@
+/*
+_prime_factorize _sieve _bitmask
+
+O(NlogN + n + q*n/60)
+*/
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
