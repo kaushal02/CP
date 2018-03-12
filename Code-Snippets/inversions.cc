@@ -14,15 +14,15 @@ struct bit {
     } // arr[l]+..+arr[r]
 };
 template <typename T>
-inline ll inversions(vector<T> a) {
+inline int inversions(vector<T> a) {
     int n = sz(a);
     vector<T> c(a); sort(all(c));
 
     map<T,int> pos;
     int k(0); for(T x: c) if(!pos.count(x)) pos[x] = k++;
 
-    ll ans(0);
+    int ans(0);
     bit<int> b(k);
-    for(T x: a) b.add(pos[x]), ans += b.sum(pos[x] + 1, k - 1);
+    for(T x: a) b.add(pos[x]), ans += b.sum(pos[x]+1, k-1);
     return ans;
 }

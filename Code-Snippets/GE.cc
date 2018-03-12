@@ -39,18 +39,18 @@ bool solve(double A[N][N*2], double x[N], double B[N], int n) {
 }
 
 
-ll p, in[N]; // in[i] = inverse of i modulo p
-inline ll inv(ll n) {
+int p, in[N]; // in[i] = inverse of i modulo p
+inline int inv(int n) {
     return in[n];
 }
-void print(ll A[N][N*2], int n) {
+void print(int A[N][N*2], int n) {
     rep(i,n)rep(j,n*2) {
         if(j == n) cerr << " | ";
         cerr << A[i][j] << " \n"[j == 2*n - 1];
     }
     cerr << '\n';
 }
-int DiaReduce(ll A[N][N*2], int n) {
+int DiaReduce(int A[N][N*2], int n) {
     rep(i,n)rep(j,n) {
         A[i][j] %= p;
         A[i][j + n] = i == j;
@@ -61,7 +61,7 @@ int DiaReduce(ll A[N][N*2], int n) {
         if(!A[i_max][k]) return k;
         if(i_max != k) rep(j,n*2) swap(A[k][j], A[i_max][j]);
         rep(i,n) if(i != k) {
-            ll f = A[i][k] * inv(A[k][k]) % p;
+            int f = A[i][k] * inv(A[k][k]) % p;
             rep(j,n*2) {
                 A[i][j] -= A[k][j] * f % p;
                 if(A[i][j] < 0) A[i][j] += p;
@@ -70,21 +70,21 @@ int DiaReduce(ll A[N][N*2], int n) {
     }
     return -1;
 }
-bool Inv(ll A[N][N*2], int n) {
+bool Inv(int A[N][N*2], int n) {
     if(DiaReduce(A, n) + 1) return false;
-    rep(i,n)rep(j,n) A[i][j + n] = A[i][j + n] * inv(A[i][i]) % p;
+    rep(i,n)rep(j,n) A[i][j+n] = A[i][j+n]*inv(A[i][i])%p;
     return true;
 }
-ll Det(ll A[N][N*2], int n) {
+int Det(int A[N][N*2], int n) {
     if(DiaReduce(A, n) + 1) return 0;
-    ll ans(1); rep(i,n) ans = ans * A[i][i] % p; return ans;
+    int ans(1); rep(i,n) ans = ans*A[i][i]%p; return ans;
 }
-bool solve(ll A[N][N*2], ll x[N], ll B[N], int n) {
+bool solve(int A[N][N*2], int x[N], int B[N], int n) {
     // solve Ax = B for unique x
     if(!Inv(A, n)) return false;
     rep(i,n) x[i] = 0, B[i] %= p;
     rep(i,n) {
-        rep(j,n) x[i] += A[i][n + j] * B[j] % p;
+        rep(j,n) x[i] += A[i][n+j]*B[j]%p;
         x[i] %= p;
     }
 }

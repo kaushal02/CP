@@ -1,6 +1,6 @@
 bool vis[N];
 int n, a[N][N], par[N];
-inline ll mst() {
+inline int mst() {
     // Prim's algorithm for Adjacency Matrices
     // O(n^2) minimum spanning tree
     mem(par, -1);
@@ -10,7 +10,7 @@ inline ll mst() {
     vi key(n,INT_MAX);
     par[0] = key[0] = 0;
     
-    ll ans(0); // weight of MST
+    int ans(0); // weight of MST
     rep(i,n) {
         int mi(INT_MAX), k(-1);
         rep(j,n) {
