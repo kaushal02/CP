@@ -1,7 +1,9 @@
 /*
-2D _subarray _bitset
+_subarray
+Find the number of subarrays having equal number of odd and even elements
+https://www.hackerearth.com/challenge/competitive/airtel-crack-the-code/algorithm/odd-even-subarrays-72ad69db/
 
-O(n^2*m/30)
+O(nlogn)
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -28,23 +30,24 @@ typedef vector<int> vi;
 #define io ios_base::sync_with_stdio(false); cin.tie(NULL);
 
 const dbl eps=1e-12, pi=acosl(-1);
-const int inf=1e16, mod=1e9+7, N=1515;
-bitset<N> a[N];
+const int inf=1e16, mod=1e9+7, N=2e6+10;
+
+
 
 #undef int
 int main() {
 #define int long long
 
-    int n, m; cin >> n >> m;
-    rep1(i,n) {
-        string s; cin >> s;
-        rep1(j,m) a[i][j] = (s[j-1]=='1')^a[i-1][j]^a[i][j-1]^a[i-1][j-1];
-    }
+    int n; cin >> n;
+    vi a(n); rep(i,n) cin >> a[i];
+    rep(i,n) a[i] = ((a[i]&1) ? 1:-1);
     
-    int ans=0; rep1(i,n)rep(j,i) {
-        int x = (a[i]^a[j]).count();
-        ans += x*(x-1)/2 + (m-x)*(m-x+1)/2;
+    map<int,int> yet;
+    int off=0, ans=0; rep(i,n) {
+        yet[-off]++;
+        off += a[i];
+        ans += yet[-off];
     }
-    cout << ans << '\n';
+    cout << ans;
     return 0;
-} 
+}
