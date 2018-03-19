@@ -1,6 +1,6 @@
 struct dsu {
 	vi par, sz;
-	dsu(int n): par(n), sz(n) { rep(i,n) par[i]=i; }
+	dsu(int n): par(n), sz(n,1) { rep(i,n) par[i]=i; }
 	int root(int a) { return par[a] == a ? a:par[a]=root(par[a]);}
 	void merge(int a, int b) {
 		a=root(a), b=root(b);

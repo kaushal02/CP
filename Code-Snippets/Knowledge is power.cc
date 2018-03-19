@@ -40,7 +40,8 @@ template<class T> struct hashed {
 	size_t operator()(T const& c) const {
 		return c.X+231LL*c.Y;
 	}
-}
+};
+
 int main () {
     set <int> s; s.size(); // O(1)
     queue <int> q; q.size(); // O(1)
