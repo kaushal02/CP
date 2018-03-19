@@ -41,6 +41,15 @@ template<class T> struct hashed {
 		return c.X+231LL*c.Y;
 	}
 };
+namespace std {
+    template<size_t N> struct less<bitset<N>>:
+    binary_function <bitset<N>,bitset<N>,bool> {
+        bool operator()(const bitset<N> &L, const bitset<N> &R) const {
+            rep(i,N) if(L[i]^R[i]) return R[i];
+            return false; // same
+        }
+    };
+}
 
 int main () {
     set <int> s; s.size(); // O(1)
