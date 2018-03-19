@@ -23,6 +23,9 @@ Topic | 1 | 2 | 3 | 4 | 5 | 6
 *ALGO 2* | [DP](https://github.com/kaushal02/CP/search?q=_DP) | [Recursion](https://github.com/kaushal02/CP/search?q=_recursion) | [nCr](https://github.com/kaushal02/CP/search?q=_nCr) | [Sieve](https://github.com/kaushal02/CP/search?q=_sieve) | [Prime Factorization](https://github.com/kaushal02/CP/search?q=_prime_factorize) | 
 *ALGO 3* | [Cycle](https://github.com/kaushal02/CP/search?q=_cycle) | [Sweep](https://github.com/kaushal02/CP/search?q=_sweep) | [Subarray](https://github.com/kaushal02/CP/search?q=_subarray) | [Bitmask](https://github.com/kaushal02/CP/search?q=_bitmask) | [Inclusion Exclusion](https://github.com/kaushal02/CP/search?q=_inclusion_exclusion) | 
 
+# TO-DO
+
+Follow [this link](https://docs.google.com/document/d/1dRpAoT59YyC0inJkl2cSl7NYBZeM1Au_rk-qFPgdMpw/edit?usp=sharing) to see unsolved problems categorized via topic.
 
 # ACKNOWLEDGEMENT
 
