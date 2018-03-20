@@ -22,6 +22,9 @@ typedef vector<int> vi;
 #define coutt cout << "Case " << _t << ": "
 #define io ios_base::sync_with_stdio(false); cin.tie(NULL);
 
+template <typename T> inline bool Max(T &a, T b) { return (a<b ? a=b,1:0);}
+template <typename T> inline bool Min(T &a, T b) { return (a>b ? a=b,1:0);}
+
 const dbl eps=1e-12, pi=acosl(-1);
 const int inf=1e16, mod=1e9+7, N=2e6+10;
 

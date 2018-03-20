@@ -1,3 +1,11 @@
+inline int pwr(int a, int n) {
+    int ans=1;
+    while(n) {
+        if(n&1) ans=ans*a%mod;
+        if(n>>=1) a=a*a%mod;
+    }
+    return ans;
+}
 int fac[N], inv[N];
 inline void init(int N) {
 	fac[0]=1; rep1(i,N) fac[i]=fac[i-1]*i%mod;
@@ -31,7 +39,11 @@ inline int inv(int n, int m) { // n,m < 1e18
     ee(n, m); assert(eed==1);
 	eex%=m; return (eex<0 ? eex+m:eex);
 }
-/******************************************************************************/
+
+/*
+https://en.wikipedia.org/wiki/Wilson%27s_theorem#Gauss's_generalization
+https://www.codechef.com/viewsolution/12374626
+*/
 int np, prime[N];
 bool isp[N];
 void sieve(int N) {
