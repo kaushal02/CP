@@ -4,7 +4,7 @@ This repo contains solutions to various programming problems available online, m
 It also has a few template files related to specific algorithms or data structure.
 
 Each solution file is appended with a `commented` section on top. It consists of:
-- [Tags](https://github.com/kaushal02/CP#tags)
+- [Tags](#tags)
 - Problem description and/or link
 - Runtime complexity
 
@@ -23,10 +23,15 @@ Topic | 1 | 2 | 3 | 4 | 5 | 6
 *ALGO 2* | [DP](https://github.com/kaushal02/CP/search?q=_DP) | [Recursion](https://github.com/kaushal02/CP/search?q=_recursion) | [nCr](https://github.com/kaushal02/CP/search?q=_nCr) | [Sieve](https://github.com/kaushal02/CP/search?q=_sieve) | [Prime Factorization](https://github.com/kaushal02/CP/search?q=_prime_factorize) | 
 *ALGO 3* | [Cycle](https://github.com/kaushal02/CP/search?q=_cycle) | [Sweep](https://github.com/kaushal02/CP/search?q=_sweep) | [Subarray](https://github.com/kaushal02/CP/search?q=_subarray) | [Bitmask](https://github.com/kaushal02/CP/search?q=_bitmask) | [Inclusion Exclusion](https://github.com/kaushal02/CP/search?q=_inclusion_exclusion) | 
 
+Complete list of tags can be found [here][all tags]
+
 # TO-DO
 
-Follow [this link](https://docs.google.com/document/d/1dRpAoT59YyC0inJkl2cSl7NYBZeM1Au_rk-qFPgdMpw/edit?usp=sharing) to see unsolved problems categorized via topic.
+Follow [this link][gdoc] to see unsolved problems categorized via topic.
 
 # ACKNOWLEDGEMENT
 
 Most of the codes are written by the author. Due acknowledgement is given in case any part of program is copied from some source.
+
+[all tags]: https://github.com/kaushal02/CP/.github/tags.md
+[gdoc]: https://docs.google.com/document/d/1dRpAoT59YyC0inJkl2cSl7NYBZeM1Au_rk-qFPgdMpw/edit?usp=sharing

@@ -102,3 +102,30 @@ inline node get(int l, int r) {
     }
     return merge(lt,rt);
 }
+/******************************************************************************/
+int n, a[N];
+struct node {
+    int x;
+} t[N<<1];
+inline void merge(node &a, node b) {
+    a = b;
+}
+inline void upd(int l, int r, int val) {
+    node value(val);
+    for(l+=n,r+=n+1; l<r; l>>=1,r>>=1) {
+        if(l&1) merge(t[l++], value);
+        if(r&1) merge(t[--r], value);
+    }
+}
+inline node get(int p) {
+    node ret(a[p]);
+    for(int i=n+p; i>>=1; ) merge(ret, t[i]);
+    return ret;
+}
+inline void push() {
+    for(int i=1; i<n; i++) {
+        merge(t[i<<1], t[i]);
+        merge(t[i<<1|1], t[i]);
+        t[i] = node();
+    }
+}
