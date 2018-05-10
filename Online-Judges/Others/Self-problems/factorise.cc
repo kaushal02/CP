@@ -1,18 +1,18 @@
 /*
+_sieve _prime_factorize
+
 Program to print prime factorisation of a number in the range [1, 1e18].
 
 Input: an integer denoting the value of n
-
 Output: prime factors of n in ascending order, separated by '*' character
+
+Sample Input: 546534813485312
+Sample Output: 5*1373*89533*13216567543
 
 Time Complexity: O(1e7)
 Space Complexity: O(1e6)
 
-Author: Kaushal
-github: @kaushal02
-facebook: @kaushal02
-
-Github Link: https://github.com/kaushal02/CP/tree/master/Online-Judges/Others/Self-problems/factorise.cc
+Stack Overflow Problem Link: https://stackoverflow.com/questions/50251565
 */
 
 #include <iostream>
