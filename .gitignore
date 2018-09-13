@@ -5,3 +5,5 @@ a.cc
 a.in
 a.output
 makefile
+
+coding/*
