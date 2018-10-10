@@ -31,7 +31,7 @@ using namespace std;
 const int mod = 1E9 + 7;
 
 int main() {
-	int n; cin >> n;
+    int n; cin >> n;
     int ans = 1;
     vector<bool> isprime(n + 1, true);
     for (int i = 2; i <= n; i++) {
@@ -48,5 +48,5 @@ int main() {
         }
     }
     cout << ans;
-	return 0;
+    return 0;
 }
