@@ -1,3 +1,22 @@
+/*
+Given a source string and a target string, both length up to 10^5, find the
+minimum length of a circular substring which contains the target string. If no 
+such substring exists, return -1. Circular substring means any substring of the
+rotated source string.
+
+For e.g. if source string is “shit” then all circular strings will be
+{“shit, “hits”, “itsh”, “tshi”}. String x contains string y if all characters 
+appear at least the same number of times in x as it appears in y. 
+
+E.g. for source “kecrha” and target “ack”, the best possible answer can be for
+the circular string “hakecr” where the relevant substring is “akec” containing 
+“ack”. Hence the final answer is 4
+
+Not O(N^2) or O(N*logN) or O(N*26)
+
+O(N) solution where N = size of source.
+*/
+
 #include <iostream>
 using namespace std;
 
