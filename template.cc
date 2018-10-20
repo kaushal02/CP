@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef int Int;
 #define int long long
 typedef long double dbl;
 typedef pair<int,int> pii;
@@ -29,7 +28,7 @@ template <typename T> inline bool Min(T &a, T b) { return (a>b ? a=b,1:0);}
 const dbl eps=1e-12, pi=acosl(-1);
 const int inf=1e16, mod=1e9+7, N=2e6+10;
 
-Int main() {
+signed main() {
 
     
 
