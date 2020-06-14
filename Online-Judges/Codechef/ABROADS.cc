@@ -1,128 +1,121 @@
 /*
 _DSU _offline
 
-O((n + (q + m) * α(n)) * log(n))
+O(n * log(n) + (q + m) * (α(n) + log(n)))
 */
+
 #include <bits/stdc++.h>
 using namespace std;
+#define int long long
 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef pair<int,int> pii;
-typedef pair<ll,ll> pll;
-typedef vector<int> vi;
-typedef vector<ll> vll;
-
-#define X first
-#define Y second
-#define mp make_pair
-#define sz(c) (ll)c.size()
-#define all(c) begin(c), end(c)
-#define eb emplace_back // tie, ignore, get<i>(a)
-#define mem(a,val) memset(a, (val), sizeof a)
-#define uni(c) c.resize(distance(c.begin(), unique(all(c))))
-
-#define rep(i,n) for(ll i = 0, _n = (n); i < _n; i++)
-#define rep1(i,a,b) for(ll i = a, _b = (b); i <= _b; i++)
-#define rep2(i,b,a) for(ll i = b, _a = (a); i >= _a; i--)
-
-#define case(ans) "Case #" << _t << ": " << ans << "\n"
 #define cout(d) cout << fixed << setprecision(d)
-#define err(x) cerr << #x << " = " << x << '\n'
+template <typename T> inline bool Max(T &a, T b) { return (a<b ? a=b,1:0);}
+template <typename T> inline bool Min(T &a, T b) { return (a>b ? a=b,1:0);}
 
-#define TTi template<typename T> inline
+const double eps = 1e-12, pi = acosl(-1);
+const int inf = 1e16, mod = 1e9 + 7, N = 2e6 + 10;
 
-const ll inf = 1e16, mod = 1e9 + 7;
-const double eps = 1e-16;
-const int N = 5e5 + 10;
-
-ll n, m, q, ans[N];
-bool toadd[N];
-pii e[N];
-pair<char,pll> query[N];
-stack<ll> w[N];
-
-struct dsu {
-    vi par;
-    map<ll,ll> weights, weight_count;
-    map<ll,ll>:: iterator it;
-    dsu(int n): par(n) { rep(i,n) par[i] = i, weights[i] = w[i].top(), ++weight_count[w[i].top()];}
-    void merge(int a, int b) {
-        it = weight_count.find(weights[dad(a)]);
-        --(it->Y);
-        it = weight_count.find(weights[dad(b)]);
-        --(it->Y);
-        
-        weights[dad(a)] += weights[dad(b)];
-        weights.erase(dad(b));
-        
-        ++weight_count[weights[dad(a)]];
-        
-        par[dad(b)] = dad(a);
-    }
-    int dad(int a) { return a == par[a] ? a : par[a] = dad(par[a]);}
-    bool diff(int a, int b) { return dad(a) != dad(b);}
-    ll dia() {
-        while(!weight_count.rbegin()->Y) {
-            it = weight_count.end();
-            weight_count.erase(--it);
-        }
-        return weight_count.rbegin()->X;
-    }
-    void adjust(int a, ll old_w) {
-        it = weight_count.find(weights[dad(a)]);
-        --(it->Y);
-        
-        weights[dad(a)] += w[a].top() - old_w;
-        ++weight_count[weights[dad(a)]];
-    }
+#define pq(c) priority_queue<c,vector<c>,compare<c>>
+template<class T> struct compare {
+	bool operator()(const T& l, const T& r) const {
+		return l.second.second < r.second.second;
+	}
 };
 
-int main() {
-    string s;
-    ll x, y;
-    
-    cin >> n >> m >> q;
-    rep(i,n) cin >> x, w[i].push(x);
-    rep(i,m) cin >> e[i].X >> e[i].Y, e[i].X--, e[i].Y--;
-    mem(toadd, true);
-    rep(i,q) {
-        cin >> s;
-        query[i].X = s[0];
-        if(s[0] == 'P') {
-            cin >> x >> y; x--;
-            query[i].Y = mp(x,y);
-            w[x].push(y);
-        }
-        else {
-            cin >> x; x--;
-            query[i].Y = mp(x,0);
-            toadd[x] = false;
-        }
-    }
-    
-    dsu d(n);
-    rep(i,m) if(toadd[i]) {
-        if(d.diff(e[i].X, e[i].Y))
-            d.merge(e[i].X, e[i].Y);
-    }
+struct dsu {
+	int k;
+	vector <int> par, sz, wei, id;
+	typedef pair <int, pair <int, int>> myStruct;
+	pq(myStruct) wt_q;
+	dsu(int n, stack <int> *w): k(0), par(n), sz(n, 1), wei(n, 0), id(n, 0) {
+		for (int i = 0; i < n; i++) {
+			wt_upd(i, w[i].top());
+			par[i] = i;
+		}
+	}
+	int root(int a) { 
+		if (par[a] == a) {
+			return a;
+		}
+		return par[a] = root(par[a]);
+	}
+	void merge(int a, int b) {
+		a = root(a);
+		b = root(b);
+		if (a == b) return;
+		if (sz[a] < sz[b]) swap(a, b);
+		sz[a] += sz[b];
+		par[b] = a;
+		wt_upd(a, wei[b]);
+	}
+	void wt_upd(int a, int wt_chng) {
+		wei[a] += wt_chng;
+		id[a] = ++k;
+		wt_q.push({a, {k, wei[a]}});
+	}
+	int weight() {
+		while (true) {
+			auto tmp = wt_q.top();
+			if (tmp.first != root(tmp.first) or tmp.second.first < id[tmp.first]) {
+				wt_q.pop();
+			} else {
+				break;
+			}
+		}
+		return wt_q.top().second.second;
+	}
+};
 
-    ans[q-1] = d.dia();
-    rep2(i,q-1,1) {
-        if(query[i].X == 'P') {
-            x = query[i].Y.X;
-            y = query[i].Y.Y;
-            w[x].pop();
-            d.adjust(x,y);
-        }
-        else {
-            x = query[i].Y.X;
-            if(d.diff(e[x].X, e[x].Y))
-                d.merge(e[x].X, e[x].Y);
-        }
-        ans[i-1] = d.dia();
-    }
-    
-    rep(i,q) cout << ans[i] << '\n';
+signed main() {
+	int n, m, q; cin >> n >> m >> q;
+	stack <int> w[n];
+	for (int i = 0; i < n; i++) {
+		int x; cin >> x;
+		w[i].push(x);
+	}
+	vector <pair <int, int>> e(m);
+	for (int i = 0; i < m; i++) {
+		cin >> e[i].first >> e[i].second;
+	}
+	vector <bool> use(m, true);
+	vector <pair <int, int>> qu(q);
+	for (int i = 0; i < q; i++) {
+		string typ; cin >> typ;
+		if (typ == "D") {
+			int k; cin >> k;
+			use[k - 1] = false;
+			qu[i] = {1, k - 1};
+		} else {
+			int a, x; cin >> a >> x;
+			w[a - 1].top() -= x;
+			w[a - 1].push(x);
+			qu[i] = {2, a - 1};
+		}
+	}
+
+	dsu d(n, w);
+	for (int i = 0; i < n; i++) {
+		w[i].pop();
+	}
+	for (int i = 0; i < m; i++) {
+		if (use[i]) {
+			d.merge(e[i].first - 1, e[i].second - 1);
+		}
+	}
+	vector <int> ans(q);
+	for (int i = q; i--; ) {
+		ans[i] = d.weight();
+		if (qu[i].first == 1) {
+			int tmp = qu[i].second;
+			d.merge(e[tmp].first - 1, e[tmp].second - 1);
+		} else {
+			int tmp = qu[i].second;
+			d.wt_upd(d.root(tmp), w[tmp].top());
+			w[tmp].pop();
+		}
+	}
+	for (int i = 0; i < q; i++) {
+		cout << ans[i] << '\n';
+	}
     return 0;
 }
