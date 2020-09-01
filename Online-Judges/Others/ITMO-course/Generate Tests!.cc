@@ -60,6 +60,6 @@ int main() {
     cin >> k;
     init();
     solve(1);
-    cout << k - minn + 1 << '\n';
+    cout << minn << '\n';
     return 0;
 }
