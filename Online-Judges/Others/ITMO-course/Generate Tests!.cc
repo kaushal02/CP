@@ -1,16 +1,21 @@
 /*
 _recursion
 
-Question to find smallest number in the range [2,k] having maximum number of divisors.
+Problem:
+Find smallest number in the range [2,k] having maximum number of divisors.
+1 <= k <= 1E18
+
+Solution:
 Key observation is that any number can have a very small limited number of distinct divisors.
 As we are interested in maximising the divisor count while keeping our number as small as possible,
 we will only check for numbers of the form 2^a * 3^b * 5^c and so on where a >= b >= c..
 
-Problem link:
+Problem link [Broken]:
 https://courses.edx.org/courses/course-v1:ITMOx+I2CPx+3T2016/courseware/5f7ded3dde75420f8da894830d69e7e4/05c1037ba1e2450e931dfbd1c2d1856d/
 from the course "ITMOx: I2CPx How to win coding competitions: secrets of champions" on edX
 
-Makes nearly 1E5 calls for k = 1E18.
+Complexity:
+Makes nearly 1E5 calls for k = 1E18
 */
 
 #include <bits/stdc++.h>
