@@ -1,9 +1,14 @@
+# development environment
+.DS_Store
+.vscode
+.idea
+*~
+
+#build artifacts
 *.o
 *.out
 
+#quick code files
 a.cc
 a.in
 a.output
-makefile
-
-coding/*
