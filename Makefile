@@ -1,16 +1,28 @@
-FILE := a.cc
-TEMPLATE := template2.cc
-CODEDIR := Online-Judges
+CXX ?= g++
+CXXFLAGS ?= -std=c++14 # -fmax-errors=2
+TEMPLATE ?= template2.cc
+CODEDIR ?= Online-Judges
 
-run: $(FILE)
-	g++ -std=c++11 -fmax-errors=2 $(FILE)
+run:
+ifdef FILE
+	$(CXX) $(CXXFLAGS) $(FILE)
 	./a.out <a.in
-	make clean
+	$(MAKE) clean
+else
+	@echo "running a.cc"
+	$(CXX) $(CXXFLAGS) a.cc
+	./a.out <a.in
+	$(MAKE) clean
+endif
 
-%: $(TEMPLATE) $(CODEDIR)/%
-	cp $(TEMPLATE) $(CODEDIR)/$@/$(FILE)
-	git add $(CODEDIR)/$@/$(FILE)
-	@echo $(CODEDIR)/$@/$(FILE)
+%: $(CODEDIR)/%
+ifdef FILE
+	cp $(TEMPLATE) $</$(FILE)
+	git add $</$(FILE)
+	@echo $</$(FILE)
+else
+	@echo "please provide FILE"
+endif
 
 clean:
 	rm -f a.out

@@ -5,20 +5,16 @@ using namespace std;
 class Solution {
 public:
     Solution() {
-
     }
-    void solve() {
-
+    static void solve() {
     }
     static void unittests() {
-        assert(Solution().solve() == 0);
     }
 };
 
 int main() {
-    // your code goes here
+    //ios_base::sync_with_stdio(false); cin.tie(NULL);
     Solution::unittests();
-
 
     return 0;
 }
