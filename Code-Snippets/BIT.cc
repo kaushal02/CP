@@ -1,4 +1,4 @@
-int bt[N], a[N], nb;
+int bt[N], nb;
 inline void upd(int x, int val) {
     x++;
     for(int i=x; i<=nb; i+=i&-i)
@@ -11,8 +11,7 @@ inline int sumh(int x) {
     return sum;
 }
 inline int sum(int x, int X) {
-    X++;
-    return sumh(X) - sumh(x);
+    return sumh(X+1) - sumh(x);
 }
 /**********************************/
 int bt[N], nb;

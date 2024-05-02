@@ -1,5 +1,5 @@
 CXX ?= g++
-CXXFLAGS ?= -std=c++14 # -fmax-errors=2
+CXXFLAGS ?= -std=c++17 #-DLOCAL # -fmax-errors=2
 TEMPLATE ?= template2.cc
 CODEDIR ?= Online-Judges
 
